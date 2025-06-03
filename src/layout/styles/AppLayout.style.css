@@ -154,11 +154,18 @@
 
 .layout-empty-library-btn {
   font-size: 0.875rem;
-  font-weight: 800;
+  font-weight: 700;
   border-radius: 30px;
   background-color: white;
   padding: 8px 16px;
   width: fit-content;
+  border: none;
+  outline: none;
+}
+
+.layout-empty-library-btn:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
 }
 
 .layout-notplaying-sign-up {
