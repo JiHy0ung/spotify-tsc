@@ -4,6 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import theme from "./theme";
 
 const root = ReactDOM.createRoot(
   // 번들은 srs밑에 있는 index 파일을 사용하기 떄문에 content로 수정.
@@ -13,7 +15,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
