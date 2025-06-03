@@ -85,7 +85,6 @@ module.exports = (env, argv) => {
       new HtmlWebpackPlugin({
         // HTML 파일을 생성하고, 번들링된 자바스크립를 자동으로 포함시킵니다.
         template: path.resolve(__dirname, "src", "index.html"), // 이거 만들어줘야 함.
-        favicon: path.resolve(__dirname, "src", "assets", "Spotify.ico"),
       }),
       new Dotenv({
         // 환경 변수 파일 로드.
