@@ -13,7 +13,12 @@ const LibraryHead = () => {
   }));
   return (
     <ContentBoxHeader>
-      <Typography variant="h2" fontWeight={700} marginLeft={"4px"}>
+      <Typography
+        variant="h2"
+        fontWeight={700}
+        marginLeft={"4px"}
+        sx={{ cursor: "default", letterSpacing: "-0.5px"}}
+      >
         내 라이브러리
       </Typography>
       <button className="layout-sidebar-library-btn">

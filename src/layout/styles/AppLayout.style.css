@@ -40,6 +40,7 @@
   border: none;
   outline: none;
   padding-inline: 8px;
+  letter-spacing: -0.5px;
 }
 
 .layout-search-input::placeholder {
@@ -140,6 +141,8 @@
   border: none;
   border-radius: 30px;
   background-color: #121212;
+  cursor: pointer;
+  transition: all ease 0.3s;
 }
 
 .layout-sidebar-library-btn:hover {
@@ -153,6 +156,9 @@
 }
 
 .layout-empty-library-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 0.875rem;
   font-weight: 700;
   border-radius: 30px;
@@ -161,6 +167,7 @@
   width: fit-content;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 .layout-empty-library-btn:hover {
@@ -169,12 +176,17 @@
 }
 
 .layout-notplaying-sign-up {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 1rem;
   font-weight: 700;
+  height: 48px;
   background-color: white;
   color: black;
   padding: 16px 32px;
   border-radius: 30px;
+  letter-spacing: -0.5px;
   outline: none;
   border: none;
 }
