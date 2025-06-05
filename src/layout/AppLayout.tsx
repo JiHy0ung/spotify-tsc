@@ -14,7 +14,8 @@ const LayoutContainer = styled("div")({
 
 const SideBar = styled("div")(({ theme }) => ({
   width: "420px",
-  height: "100%",
+  minWidth: "420px",
+  height: "calc(100% - NotPlayingBar);",
   display: "flex",
   flexDirection: "column",
   borderRadius: "8px",
@@ -26,10 +27,11 @@ const SideBar = styled("div")(({ theme }) => ({
 
 const MainContainer = styled("div")({
   display: "flex",
-  height: "100%",
+  flex: 1,
   paddingInline: "8px",
   marginBottom: "82px",
   gap: "8px",
+  overflow: "hidden",
 });
 
 const ContentBox = styled("div")(({ theme }) => ({
@@ -40,6 +42,13 @@ const ContentBox = styled("div")(({ theme }) => ({
   marginBottom: "8px",
   marginRight: "8px",
 }));
+
+const OutletWrapper = styled("div")({
+  height: "100%",
+  flex: "1",
+  overflowX: "hidden",
+  overflowY: "auto",
+});
 
 const AppLayout = () => {
   return (
@@ -52,7 +61,9 @@ const AppLayout = () => {
             <EmptyPlaylist />
           </ContentBox>
         </SideBar>
-        <Outlet />
+        <OutletWrapper>
+          <Outlet />
+        </OutletWrapper>
       </MainContainer>
       <NotPlayingBar />
     </LayoutContainer>
