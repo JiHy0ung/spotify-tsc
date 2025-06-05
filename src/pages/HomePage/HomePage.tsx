@@ -16,7 +16,7 @@ const HomePageContainer = styled("div")({
   borderRadius: "8px",
   overflowX: "hidden",
   overflowY: "auto",
-  backgroundImage: "linear-gradient(to bottom, #212121 10%, #121212 90%)",
+  backgroundImage: "linear-gradient(to bottom, #212121 0%, #121212 35%)",
 
   "&::-webkit-scrollbar": {
     width: "8px",
