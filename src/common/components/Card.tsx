@@ -54,14 +54,17 @@ const AlbumInfoArea = styled("div")({
   gap: "4px",
 });
 
-const AlbumPlayButton = styled("div")({
+const AlbumPlayButton = styled("div")(({ theme }) => ({
   right: "8px",
   bottom: "0px",
   opacity: "0",
   position: "absolute",
   transform: "translate3d(0px, 0px, 0px)",
   transition: "all 0.2s ease-in-out",
-});
+  [theme.breakpoints.down("xl")]: {
+    display: "none",
+  },
+}));
 
 const Card = ({ image, name, artistName }: CardProps) => {
   return (
