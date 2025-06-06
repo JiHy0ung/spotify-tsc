@@ -3,6 +3,7 @@ import { styled } from "@mui/material";
 import { NavLink } from "react-router";
 import spotifyLogo from "../../assets/logo/Spotify_Logo_White.png";
 import "../styles/AppLayout.style.css";
+import LoginButton from "../../common/components/LoginButton";
 
 const NavBar = () => {
   const NavBar = styled("div")({
@@ -118,7 +119,7 @@ const NavBar = () => {
             <div>가입하기</div>
           </div>
         </div>
-        <button className="layout-nav-login-btn">로그인하기</button>
+        <LoginButton />
       </div>
     </NavBar>
   );

@@ -13,8 +13,8 @@ const LayoutContainer = styled("div")({
 });
 
 const SideBar = styled("div")(({ theme }) => ({
-  width: "420px",
-  minWidth: "420px",
+  width: "303px",
+  minWidth: "303px",
   height: "calc(100% - NotPlayingBar);",
   display: "flex",
   flexDirection: "column",

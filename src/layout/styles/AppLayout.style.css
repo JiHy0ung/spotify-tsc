@@ -103,24 +103,6 @@
   fill: #b3b3b3;
 }
 
-.layout-nav-login-btn {
-  height: 48px;
-  background-color: #ffffff;
-  color: black;
-  padding: 8px 32px;
-  font-size: 1rem;
-  font-weight: bold;
-  outline: none;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-}
-
-.layout-nav-login-btn:hover {
-  background-color: #f0f0f0;
-  transform: scale(1.05);
-}
-
 .layout-sidebar-library-add {
   width: 16px;
   height: 16px;
