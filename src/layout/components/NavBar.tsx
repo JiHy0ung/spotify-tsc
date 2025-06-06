@@ -2,18 +2,29 @@ import React from "react";
 import { styled } from "@mui/material";
 import { NavLink } from "react-router";
 import spotifyLogo from "../../assets/logo/Spotify_Logo_White.png";
+import spotifyLogoWithText from "../../assets/logo/Spotify_Logo_Text_White.png";
 import "../styles/AppLayout.style.css";
 import LoginButton from "../../common/components/LoginButton";
 
 const NavBar = () => {
-  const NavBar = styled("div")({
+  const NavContainerCenter = styled("div")({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  });
+
+  const NavBar = styled("div")(({ theme }) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
     height: "64px",
     padding: "8px",
-  });
+    [theme.breakpoints.down("xl")]: {
+      height: "56px",
+      padding: "0px",
+    },
+  }));
 
   const NavIcon = styled(NavLink)(({ theme }) => ({
     display: "flex",
@@ -36,7 +47,7 @@ const NavBar = () => {
     },
   });
 
-  const NavSearchBar = styled("div")({
+  const NavSearchBar = styled("div")(({ theme }) => ({
     width: "474px",
     height: "48px",
     display: "flex",
@@ -46,13 +57,107 @@ const NavBar = () => {
     borderRadius: "30px",
     padding: "0px 12px",
     marginInline: "8px",
-  });
+    [theme.breakpoints.down("xl")]: {
+      display: "none",
+    },
+  }));
+
+  const NavDesktopImage = styled("img")(({ theme }) => ({
+    height: "32px",
+    paddingInline: "20px",
+    [theme.breakpoints.down("xl")]: {
+      display: "none",
+    },
+  }));
+
+  const NavMobileImage = styled("img")(({ theme }) => ({
+    height: "24px",
+    paddingInline: "16px",
+    [theme.breakpoints.up("xl")]: {
+      display: "none",
+    },
+  }));
+
+  const NavSearchBox = styled("div")(({ theme }) => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    [theme.breakpoints.up("xl")]: {
+      display: "none",
+    },
+  }));
+
+  const NavDesktopWrapper = styled("div")(({ theme }) => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    [theme.breakpoints.down("xl")]: {
+      display: "none",
+    },
+  }));
+
+  const NavMobileWrapper = styled("div")(({ theme }) => ({
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingInline: "16px",
+    [theme.breakpoints.up("xl")]: {
+      display: "none",
+    },
+  }));
+
+  const NavMobileButtons = styled("div")(({ theme }) => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "16px",
+  }));
+
+  const NavOpenAppButton = styled("button")(({ theme }) => ({
+    color: "#000000",
+    fontSize: "13px",
+    fontWeight: "bold",
+    padding: "8px 16px",
+    outline: "none",
+    border: "none",
+    borderRadius: "30px",
+    backgroundColor: theme.palette.secondary.main,
+    cursor: "pointer",
+    "&:hover": {
+      backgroundColor: "#f0f0f0",
+      transform: "scale(1.05)",
+    },
+  }));
+
+  const NavHamburgerButton = styled("div")(({ theme }) => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fill: theme.palette.secondary.main,
+    "&:hover": {
+      transform: "scale(1.05)",
+    },
+  }));
+
   return (
     <NavBar>
       <NavIcon to="/">
-        <img src={spotifyLogo} alt="spotify logo" className="layout-logo-img" />
+        <NavDesktopImage src={spotifyLogo} alt="spotify logo" />
+        <NavMobileImage src={spotifyLogoWithText} alt="spotify logo" />
       </NavIcon>
-      <div className="container-center">
+
+      <NavMobileWrapper>
+        <NavMobileButtons>
+          <NavOpenAppButton>앱 열기</NavOpenAppButton>
+          <NavHamburgerButton>
+            <svg role="img" aria-hidden="true" height={"24px"} width={"24px"}>
+              <path d="M21 6H3V4h18v2zm0 14H3v-2h18v2zm0-7H3v-2h18v2z"></path>
+            </svg>
+          </NavHamburgerButton>
+        </NavMobileButtons>
+      </NavMobileWrapper>
+
+      <NavDesktopWrapper className="container-center">
         <NavIconArea>
           <NavIcon to="/">
             <svg
@@ -67,7 +172,7 @@ const NavBar = () => {
           </NavIcon>
         </NavIconArea>
         <NavSearchBar>
-          <div className="layout-nav-search-box">
+          <NavSearchBox>
             <NavIcon to="/search">
               <svg
                 data-encore-id="icon"
@@ -84,7 +189,7 @@ const NavBar = () => {
               className="layout-search-input"
               placeholder="어떤 콘텐츠를 감상하고 싶으세요?"
             />
-          </div>
+          </NavSearchBox>
           <svg
             data-encore-id="icon"
             role="img"
@@ -95,32 +200,32 @@ const NavBar = () => {
             <path d="M15 15.5c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z"></path>
             <path d="M1.513 9.37A1 1 0 0 1 2.291 9h19.418a1 1 0 0 1 .979 1.208l-2.339 11a1 1 0 0 1-.978.792H4.63a1 1 0 0 1-.978-.792l-2.339-11a1 1 0 0 1 .201-.837zM3.525 11l1.913 9h13.123l1.913-9H3.525zM4 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v4h-2V3H6v3H4V2z"></path>
           </svg>
-        </NavSearchBar>
-        <div className="container-center">
-          <div className="layout-nav-info-1">
-            <div>Premium</div>
-            <div>지원</div>
-            <div>다운로드하기</div>
-          </div>
-          <div className="layout-nav-info-2">
-            <div className="container-center">
-              <svg
-                data-encore-id="icon"
-                role="img"
-                aria-hidden="true"
-                viewBox="0 0 16 16"
-                className="layout-nav-download-img"
-              >
-                <path d="M4.995 8.745a.75.75 0 0 1 1.06 0L7.25 9.939V4a.75.75 0 0 1 1.5 0v5.94l1.195-1.195a.75.75 0 1 1 1.06 1.06L8 12.811l-.528-.528a.945.945 0 0 1-.005-.005L4.995 9.805a.75.75 0 0 1 0-1.06z"></path>
-                <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13z"></path>
-              </svg>
-              앱 설치하기
+          <NavContainerCenter>
+            <div className="layout-nav-info-1">
+              <div>Premium</div>
+              <div>지원</div>
+              <div>다운로드하기</div>
             </div>
-            <div>가입하기</div>
-          </div>
-        </div>
+            <div className="layout-nav-info-2">
+              <NavContainerCenter>
+                <svg
+                  data-encore-id="icon"
+                  role="img"
+                  aria-hidden="true"
+                  viewBox="0 0 16 16"
+                  className="layout-nav-download-img"
+                >
+                  <path d="M4.995 8.745a.75.75 0 0 1 1.06 0L7.25 9.939V4a.75.75 0 0 1 1.5 0v5.94l1.195-1.195a.75.75 0 1 1 1.06 1.06L8 12.811l-.528-.528a.945.945 0 0 1-.005-.005L4.995 9.805a.75.75 0 0 1 0-1.06z"></path>
+                  <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13z"></path>
+                </svg>
+                앱 설치하기
+              </NavContainerCenter>
+              <div>가입하기</div>
+            </div>
+          </NavContainerCenter>
+        </NavSearchBar>
         <LoginButton />
-      </div>
+      </NavDesktopWrapper>
     </NavBar>
   );
 };

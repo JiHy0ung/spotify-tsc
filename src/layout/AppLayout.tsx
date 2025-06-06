@@ -20,19 +20,23 @@ const SideBar = styled("div")(({ theme }) => ({
   flexDirection: "column",
   borderRadius: "8px",
   backgroundColor: theme.palette.background.paper,
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("xl")]: {
     display: "none",
   },
 }));
 
-const MainContainer = styled("div")({
+const MainContainer = styled("div")(({ theme }) => ({
   display: "flex",
   flex: 1,
   paddingInline: "8px",
   marginBottom: "82px",
   gap: "8px",
   overflow: "hidden",
-});
+  [theme.breakpoints.down("xl")]: {
+    paddingInline: "0px",
+    marginBottom: "0px",
+  },
+}));
 
 const ContentBox = styled("div")(({ theme }) => ({
   borderRadius: "8px",

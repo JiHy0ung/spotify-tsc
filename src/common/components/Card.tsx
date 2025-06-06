@@ -8,7 +8,7 @@ interface CardProps {
   artistName: string | undefined;
 }
 
-const CardContainer = styled("div")({
+const CardContainer = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "8px",
@@ -26,13 +26,21 @@ const CardContainer = styled("div")({
     bottom: "8px",
     opacity: "1",
   },
-});
 
-const AlbumCoverContainer = styled("div")({
+  [theme.breakpoints.down("xl")]: {
+    padding: "16px",
+  },
+}));
+
+const AlbumCoverContainer = styled("div")(({ theme }) => ({
   position: "relative",
   height: "171.5px",
   width: "171.5px",
-});
+  [theme.breakpoints.down("xl")]: {
+    height: "152px",
+    width: "152px",
+  },
+}));
 
 const AlbumCoverImage = styled("img")({
   width: "100%",
@@ -65,8 +73,28 @@ const Card = ({ image, name, artistName }: CardProps) => {
         </AlbumPlayButton>
       </AlbumCoverContainer>
       <AlbumInfoArea>
-        <Typography variant="h2">{name}</Typography>
-        <Typography variant="body1" color="textSecondary">
+        <Typography
+          variant="h2"
+          sx={{
+            width: {
+              md: "152px",
+            },
+          }}
+        >
+          {name}
+        </Typography>
+        <Typography
+          variant="body1"
+          color="textSecondary"
+          sx={{
+            display: {
+              xs: "none",
+              md: "none",
+              lg: "none",
+              xl: "block",
+            },
+          }}
+        >
           {artistName || "No Name"}
         </Typography>
       </AlbumInfoArea>

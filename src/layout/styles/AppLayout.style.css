@@ -14,7 +14,7 @@
   padding: 0px 4px 0px 0px;
 }
 
-.layout-nav-search-box:hover .layout_search_img {
+/* .layout-nav-search-box:hover .layout_search_img {
   fill: #ffffff;
 }
 
@@ -30,7 +30,7 @@
 
 .layout-nav-search-box:focus {
   border: 2px solid white;
-}
+} */
 
 .layout-search-input {
   background-color: #1f1f1f;

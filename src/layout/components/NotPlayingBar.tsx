@@ -1,9 +1,9 @@
 import React from "react";
-import { Box, Button, styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import "../styles/AppLayout.style.css";
 
 const NotPlayingBar = () => {
-  const NotPlayingBarContainer = styled("div")({
+  const NotPlayingBarContainer = styled("div")(({ theme }) => ({
     display: "flex",
     justifyContent: "space-between",
     width: "calc(100% - 16px);",
@@ -14,7 +14,10 @@ const NotPlayingBar = () => {
     padding: "11px 24px 7px 15px",
     margin: "8px",
     background: "linear-gradient(to right, #af2896, #509bf5)",
-  });
+    [theme.breakpoints.down("xl")]: {
+      display: "none",
+    },
+  }));
 
   return (
     <NotPlayingBarContainer>
@@ -24,7 +27,7 @@ const NotPlayingBar = () => {
           flexDirection: "column",
           justifyContent: "center",
           padding: "0",
-          margin: "0"
+          margin: "0",
         }}
       >
         <Typography variant="body1" fontWeight={700} letterSpacing="-0.3px">
