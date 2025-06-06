@@ -22,6 +22,9 @@ const NewReleases = () => {
     [theme.breakpoints.down("lg")]: {
       paddingInline: "40px",
     },
+    [theme.breakpoints.down("md")]: {
+      paddingInline: "24px",
+    },
   }));
 
   const {
@@ -75,7 +78,7 @@ const NewReleases = () => {
               xl: "28px",
               lg: "8px",
               md: "28px",
-              xs: "32px",
+              xs: "16px",
             },
           }}
         >
