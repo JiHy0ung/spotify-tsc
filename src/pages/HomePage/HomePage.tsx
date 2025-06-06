@@ -54,7 +54,9 @@ const HomePageBannerButton = styled("button")(({ theme }) => ({
   alignItems: "center",
   fontSize: "13px",
   fontWeight: "700",
-  padding: "6px 16px",
+  padding: "8px 16px",
+  outline:"none",
+  border:"none",
   borderRadius: "30px",
   marginTop: "8px",
   color: theme.palette.text.primary,
@@ -74,7 +76,7 @@ const HomePage = () => {
           >
             Premium 가입하기
           </Typography>
-          <Typography variant="h2" fontWeight={"400"} color="#000000">
+          <Typography variant="h2" fontWeight={"400"} color="#000000" marginTop={"4px"}>
             무광고 음악을 마음껏 즐기세요. 언제든 해지 가능합니다.
           </Typography>
           <HomePageBannerButton>Premium 가입하기</HomePageBannerButton>

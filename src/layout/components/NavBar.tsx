@@ -5,6 +5,7 @@ import spotifyLogo from "../../assets/logo/Spotify_Logo_White.png";
 import spotifyLogoWithText from "../../assets/logo/Spotify_Logo_Text_White.png";
 import "../styles/AppLayout.style.css";
 import LoginButton from "../../common/components/LoginButton";
+import { getSpotifyAuthUrl } from "../../utils/auth";
 
 const NavBar = () => {
   const NavContainerCenter = styled("div")({
@@ -116,7 +117,7 @@ const NavBar = () => {
   const NavOpenAppButton = styled("button")(({ theme }) => ({
     color: "#000000",
     fontSize: "13px",
-    fontWeight: "bold",
+    fontWeight: "800",
     padding: "8px 16px",
     outline: "none",
     border: "none",
@@ -139,6 +140,10 @@ const NavBar = () => {
     },
   }));
 
+  const login = () => {
+    getSpotifyAuthUrl();
+  };
+
   return (
     <NavBar>
       <NavIcon to="/">
@@ -148,7 +153,7 @@ const NavBar = () => {
 
       <NavMobileWrapper>
         <NavMobileButtons>
-          <NavOpenAppButton>앱 열기</NavOpenAppButton>
+          <NavOpenAppButton onClick={login}>로그인</NavOpenAppButton>
           <NavHamburgerButton>
             <svg role="img" aria-hidden="true" height={"24px"} width={"24px"}>
               <path d="M21 6H3V4h18v2zm0 14H3v-2h18v2zm0-7H3v-2h18v2z"></path>
@@ -201,29 +206,29 @@ const NavBar = () => {
             <path d="M1.513 9.37A1 1 0 0 1 2.291 9h19.418a1 1 0 0 1 .979 1.208l-2.339 11a1 1 0 0 1-.978.792H4.63a1 1 0 0 1-.978-.792l-2.339-11a1 1 0 0 1 .201-.837zM3.525 11l1.913 9h13.123l1.913-9H3.525zM4 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v4h-2V3H6v3H4V2z"></path>
           </svg>
         </NavSearchBar>
-          <NavContainerCenter>
-            <div className="layout-nav-info-1">
-              <div>Premium</div>
-              <div>지원</div>
-              <div>다운로드하기</div>
-            </div>
-            <div className="layout-nav-info-2">
-              <NavContainerCenter>
-                <svg
-                  data-encore-id="icon"
-                  role="img"
-                  aria-hidden="true"
-                  viewBox="0 0 16 16"
-                  className="layout-nav-download-img"
-                >
-                  <path d="M4.995 8.745a.75.75 0 0 1 1.06 0L7.25 9.939V4a.75.75 0 0 1 1.5 0v5.94l1.195-1.195a.75.75 0 1 1 1.06 1.06L8 12.811l-.528-.528a.945.945 0 0 1-.005-.005L4.995 9.805a.75.75 0 0 1 0-1.06z"></path>
-                  <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13z"></path>
-                </svg>
-                앱 설치하기
-              </NavContainerCenter>
-              <div>가입하기</div>
-            </div>
-          </NavContainerCenter>
+        <NavContainerCenter>
+          <div className="layout-nav-info-1">
+            <div>Premium</div>
+            <div>지원</div>
+            <div>다운로드하기</div>
+          </div>
+          <div className="layout-nav-info-2">
+            <NavContainerCenter>
+              <svg
+                data-encore-id="icon"
+                role="img"
+                aria-hidden="true"
+                viewBox="0 0 16 16"
+                className="layout-nav-download-img"
+              >
+                <path d="M4.995 8.745a.75.75 0 0 1 1.06 0L7.25 9.939V4a.75.75 0 0 1 1.5 0v5.94l1.195-1.195a.75.75 0 1 1 1.06 1.06L8 12.811l-.528-.528a.945.945 0 0 1-.005-.005L4.995 9.805a.75.75 0 0 1 0-1.06z"></path>
+                <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13z"></path>
+              </svg>
+              앱 설치하기
+            </NavContainerCenter>
+            <div>가입하기</div>
+          </div>
+        </NavContainerCenter>
         <LoginButton />
       </NavDesktopWrapper>
     </NavBar>
