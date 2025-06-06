@@ -80,7 +80,9 @@ const Card = ({ image, name, artistName }: CardProps) => {
           variant="h2"
           sx={{
             width: {
+              xl: "152px",
               md: "152px",
+              xs: "152px",
             },
           }}
         >
