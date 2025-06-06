@@ -13,7 +13,7 @@ const CardContainer = styled("div")(({ theme }) => ({
   flexDirection: "column",
   gap: "8px",
   height: "fit-content",
-  width: "195.5px",
+  width: "fit-content",
   maxHeight: "292.56px",
   padding: "12px",
   borderRadius: "6px",
@@ -28,7 +28,7 @@ const CardContainer = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.down("xl")]: {
-    padding: "16px",
+    padding: "8px",
   },
 }));
 

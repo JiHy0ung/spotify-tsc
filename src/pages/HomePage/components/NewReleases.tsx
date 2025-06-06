@@ -68,7 +68,7 @@ const NewReleases = () => {
       {newReleasesData && newReleasesData.albums.items.length > 0 ? (
         <Grid
           container
-          spacing={4}
+          spacing={1}
           sx={{
             flex: "display",
             paddingInline: {
