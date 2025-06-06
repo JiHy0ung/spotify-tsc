@@ -23,6 +23,7 @@ const HomePageContainer = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("xl")]: {
     borderRadius: "0px",
     paddingTop: "0px",
+    paddingBottom:"70px",
     backgroundColor: theme.palette.background.paper,
     backgroundImage: "none",
   },
