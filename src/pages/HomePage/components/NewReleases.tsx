@@ -19,8 +19,8 @@ const NewReleases = () => {
       paddingTop: "24px",
       paddingBottom: "12px",
     },
-    [theme.breakpoints.down("xl")]: {
-      paddingInline: "32px",
+    [theme.breakpoints.down("lg")]: {
+      paddingInline: "40px",
     },
   }));
 
@@ -68,12 +68,14 @@ const NewReleases = () => {
       {newReleasesData && newReleasesData.albums.items.length > 0 ? (
         <Grid
           container
-          spacing={1}
+          spacing={4}
           sx={{
             flex: "display",
             paddingInline: {
               xl: "28px",
-              xs: "16px",
+              lg: "8px",
+              md: "28px",
+              xs: "32px",
             },
           }}
         >
