@@ -4,7 +4,7 @@ import {
   ClientCredentialTokenResponse,
   ExchangeTokenResponse,
 } from "../models/auth";
-import { REDIRECT_URI } from "../configs/commonConfig";
+import { DEV_REDIRECT_URI, REDIRECT_URI } from "../configs/commonConfig";
 // import { URLSearchParams } from "url";
 
 const encodedBase64 = (data: string): string => {
@@ -49,9 +49,11 @@ export const exchangeToken = async (
 ): Promise<ExchangeTokenResponse> => {
   try {
     const url = "https://accounts.spotify.com/api/token";
+
     if (!CLIENT_ID || !REDIRECT_URI) {
       throw new Error("Missing required parameters.");
     }
+
     const body = new URLSearchParams({
       client_id: CLIENT_ID,
       grant_type: "authorization_code",

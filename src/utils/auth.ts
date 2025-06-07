@@ -1,5 +1,5 @@
 import { CLIENT_ID } from "../configs/authConfig";
-import { REDIRECT_URI } from "../configs/commonConfig";
+import { DEV_REDIRECT_URI, REDIRECT_URI } from "../configs/commonConfig";
 import { AuthUrlParams } from "../models/auth";
 import { base64encode, generateRandomString, sha256 } from "./crypto";
 
@@ -9,6 +9,7 @@ export const getSpotifyAuthUrl = async () => {
   const codeChallenge = base64encode(hashed);
 
   const clientId = CLIENT_ID;
+  // const redirectUri = DEV_REDIRECT_URI;
   const redirectUri = REDIRECT_URI;
 
   const scope = "user-read-private user-read-email"; // 얼마나 많은 허가가 필요한지.
