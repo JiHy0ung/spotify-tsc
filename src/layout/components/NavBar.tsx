@@ -194,8 +194,6 @@ const NavBar = () => {
 
   const { data: userProfile } = useGetCurrentUserProfile();
 
-  console.log("profile", userProfile);
-
   const login = () => {
     getSpotifyAuthUrl();
   };

@@ -1,6 +1,7 @@
 import React from "react";
 import NewReleases from "./components/NewReleases";
 import { styled, Typography } from "@mui/material";
+import useGetCurrentUserProfile from "../../hooks/useGetCurrentUserProfile";
 
 const HomePageWrapper = styled("div")(({ theme }) => ({
   height: "100%",
@@ -23,7 +24,7 @@ const HomePageContainer = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("xl")]: {
     borderRadius: "0px",
     paddingTop: "0px",
-    paddingBottom:"70px",
+    paddingBottom: "70px",
     backgroundColor: theme.palette.background.paper,
     backgroundImage: "none",
   },
@@ -56,8 +57,8 @@ const HomePageBannerButton = styled("button")(({ theme }) => ({
   fontSize: "13px",
   fontWeight: "700",
   padding: "8px 16px",
-  outline:"none",
-  border:"none",
+  outline: "none",
+  border: "none",
   borderRadius: "30px",
   marginTop: "8px",
   color: theme.palette.text.primary,
@@ -65,23 +66,34 @@ const HomePageBannerButton = styled("button")(({ theme }) => ({
 }));
 
 const HomePage = () => {
+  const { data: userProfile } = useGetCurrentUserProfile();
+
   return (
     <HomePageWrapper>
       <HomePageContainer>
-        <HomePageBanner>
-          <Typography
-            variant="h2"
-            fontSize={"32px"}
-            fontWeight={700}
-            color="#000000"
-          >
-            Premium 가입하기
-          </Typography>
-          <Typography variant="h2" fontWeight={"400"} color="#000000" marginTop={"4px"}>
-            무광고 음악을 마음껏 즐기세요. 언제든 해지 가능합니다.
-          </Typography>
-          <HomePageBannerButton>Premium 가입하기</HomePageBannerButton>
-        </HomePageBanner>
+        {userProfile ? (
+          <HomePageBanner>
+            <Typography
+              variant="h2"
+              fontSize={"32px"}
+              fontWeight={700}
+              color="#000000"
+            >
+              Premium 가입하기
+            </Typography>
+            <Typography
+              variant="h2"
+              fontWeight={"400"}
+              color="#000000"
+              marginTop={"4px"}
+            >
+              무광고 음악을 마음껏 즐기세요. 언제든 해지 가능합니다.
+            </Typography>
+            <HomePageBannerButton>Premium 가입하기</HomePageBannerButton>
+          </HomePageBanner>
+        ) : (
+          <></>
+        )}
         <NewReleases />
       </HomePageContainer>
     </HomePageWrapper>
