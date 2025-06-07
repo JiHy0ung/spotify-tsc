@@ -68,10 +68,14 @@ const HomePageBannerButton = styled("button")(({ theme }) => ({
 const HomePage = () => {
   const { data: userProfile } = useGetCurrentUserProfile();
 
+  console.log("data", userProfile);
+
   return (
     <HomePageWrapper>
       <HomePageContainer>
         {userProfile ? (
+          <></>
+        ) : (
           <HomePageBanner>
             <Typography
               variant="h2"
@@ -91,8 +95,6 @@ const HomePage = () => {
             </Typography>
             <HomePageBannerButton>Premium 가입하기</HomePageBannerButton>
           </HomePageBanner>
-        ) : (
-          <></>
         )}
         <NewReleases />
       </HomePageContainer>

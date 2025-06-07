@@ -107,6 +107,10 @@ const NavBar = () => {
     [theme.breakpoints.up("xl")]: {
       display: "none",
     },
+    [theme.breakpoints.up("lg")]: {
+      paddingLeft: "16px",
+      paddingRight: "8px",
+    },
   }));
 
   const NavMobileButtons = styled("div")(({ theme }) => ({
@@ -151,9 +155,8 @@ const NavBar = () => {
 
   const NavMobileLoginWrapper = styled("div")(({ theme }) => ({
     display: "flex",
-    justifyContent: "right",
+    justifyContent: "center",
     alignItems: "center",
-    paddingInline: "16px",
   }));
 
   //   .layout-nav-info-2 {
@@ -189,7 +192,6 @@ const NavBar = () => {
     fontSize: "0.875rme",
     paddingRight: "16px",
     borderLeft: "1px solid #000000",
-    "& .div": {},
   }));
 
   const { data: userProfile } = useGetCurrentUserProfile();
@@ -202,6 +204,10 @@ const NavBar = () => {
     <NavBar>
       {userProfile ? (
         <NavMobileWrapper>
+          <NavIcon to="/">
+            <NavDesktopImage src={spotifyLogo} alt="spotify logo" />
+            <NavMobileImage src={spotifyLogoWithText} alt="spotify logo" />
+          </NavIcon>
           <NavMobileLoginWrapper>
             <NavProfileContainer
               src={userProfile.images?.[0]?.url}
