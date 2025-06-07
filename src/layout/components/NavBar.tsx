@@ -74,7 +74,6 @@ const NavBar = () => {
 
   const NavMobileImage = styled("img")(({ theme }) => ({
     height: "24px",
-    paddingInline: "16px",
     [theme.breakpoints.up("xl")]: {
       display: "none",
     },
@@ -100,6 +99,7 @@ const NavBar = () => {
   }));
 
   const NavMobileWrapper = styled("div")(({ theme }) => ({
+    width: "100%",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -149,6 +149,13 @@ const NavBar = () => {
     borderRadius: "50%",
   }));
 
+  const NavMobileLoginWrapper = styled("div")(({ theme }) => ({
+    display: "flex",
+    justifyContent: "right",
+    alignItems: "center",
+    paddingInline: "16px",
+  }));
+
   //   .layout-nav-info-2 {
   //   display: flex;
   //   justify-content: center;
@@ -195,16 +202,31 @@ const NavBar = () => {
 
   return (
     <NavBar>
-      <NavMobileWrapper>
-        <NavMobileButtons>
-          <NavOpenAppButton onClick={login}>로그인</NavOpenAppButton>
-          <NavHamburgerButton>
-            <svg role="img" aria-hidden="true" height={"24px"} width={"24px"}>
-              <path d="M21 6H3V4h18v2zm0 14H3v-2h18v2zm0-7H3v-2h18v2z"></path>
-            </svg>
-          </NavHamburgerButton>
-        </NavMobileButtons>
-      </NavMobileWrapper>
+      {userProfile ? (
+        <NavMobileWrapper>
+          <NavMobileLoginWrapper>
+            <NavProfileContainer
+              src={userProfile.images?.[0]?.url}
+              alt={userProfile.display_name}
+            />
+          </NavMobileLoginWrapper>
+        </NavMobileWrapper>
+      ) : (
+        <NavMobileWrapper>
+          <NavIcon to="/">
+            <NavDesktopImage src={spotifyLogo} alt="spotify logo" />
+            <NavMobileImage src={spotifyLogoWithText} alt="spotify logo" />
+          </NavIcon>
+          <NavMobileButtons>
+            <NavOpenAppButton onClick={login}>로그인</NavOpenAppButton>
+            <NavHamburgerButton>
+              <svg role="img" aria-hidden="true" height={"24px"} width={"24px"}>
+                <path d="M21 6H3V4h18v2zm0 14H3v-2h18v2zm0-7H3v-2h18v2z"></path>
+              </svg>
+            </NavHamburgerButton>
+          </NavMobileButtons>
+        </NavMobileWrapper>
+      )}
 
       <NavDesktopWrapper>
         <NavIcon to="/">
@@ -256,6 +278,7 @@ const NavBar = () => {
             </svg>
           </NavSearchBar>
         </NavContainerCenter>
+
         {userProfile ? (
           <NavContainerCenter>
             <NavContainerCenter sx={{ paddingInline: "8px" }}>
@@ -299,7 +322,7 @@ const NavBar = () => {
             />
           </NavContainerCenter>
         ) : (
-          <>
+          <NavContainerCenter>
             <NavContainerCenter>
               <div className="layout-nav-info-1">
                 <div>Premium</div>
@@ -324,7 +347,7 @@ const NavBar = () => {
               </div>
             </NavContainerCenter>
             <LoginButton />
-          </>
+          </NavContainerCenter>
         )}
       </NavDesktopWrapper>
     </NavBar>
