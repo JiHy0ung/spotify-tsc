@@ -153,6 +153,20 @@ const NavBar = () => {
     borderRadius: "50%",
   }));
 
+  const NavProfileNoImageContainer = styled("div")({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "14px",
+    fontWeight: "700",
+    color: "black",
+    height: "48px",
+    width: "48px",
+    background: "#ff6437",
+    border: "8px solid #1f1f1f",
+    borderRadius: "50%",
+  });
+
   const NavMobileLoginWrapper = styled("div")(({ theme }) => ({
     display: "flex",
     justifyContent: "center",
@@ -209,10 +223,16 @@ const NavBar = () => {
             <NavMobileImage src={spotifyLogoWithText} alt="spotify logo" />
           </NavIcon>
           <NavMobileLoginWrapper>
-            <NavProfileContainer
-              src={userProfile.images?.[0]?.url}
-              alt={userProfile.display_name}
-            />
+            {userProfile.images?.[0]?.url ? (
+              <NavProfileContainer
+                src={userProfile.images[0].url}
+                alt={userProfile.display_name}
+              />
+            ) : (
+              <NavProfileNoImageContainer>
+                {userProfile.display_name?.charAt(0)}
+              </NavProfileNoImageContainer>
+            )}
           </NavMobileLoginWrapper>
         </NavMobileWrapper>
       ) : (
@@ -320,10 +340,17 @@ const NavBar = () => {
                 </NavContainerCenter>
               </NavInfoSecond>
             </NavContainerCenter>
-            <NavProfileContainer
-              src={userProfile.images?.[0]?.url}
-              alt={userProfile.display_name}
-            />
+
+            {userProfile.images?.[0]?.url ? (
+              <NavProfileContainer
+                src={userProfile.images[0].url}
+                alt={userProfile.display_name}
+              />
+            ) : (
+              <NavProfileNoImageContainer>
+                {userProfile.display_name?.charAt(0)}
+              </NavProfileNoImageContainer>
+            )}
           </NavContainerCenter>
         ) : (
           <NavContainerCenter>
