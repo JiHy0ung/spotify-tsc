@@ -5,6 +5,7 @@ import LibraryHead from "./components/LibraryHead";
 import EmptyPlaylist from "./components/EmptyPlaylist";
 import NotPlayingBar from "./components/NotPlayingBar";
 import NavBar from "./components/NavBar";
+import Library from "./components/Library";
 
 const LayoutContainer = styled("div")({
   display: "flex",
@@ -45,6 +46,17 @@ const ContentBox = styled("div")(({ theme }) => ({
   width: "100%",
   marginBottom: "8px",
   marginRight: "8px",
+  overflowY: "auto",
+  "&::-webkit-scrollbar": {
+    width: "8px",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: "#ffffff4c",
+    borderRadius: "10px",
+  },
+  "&::-webkit-scrollbar-thumb:hover": {
+    backgroundColor: "#ffffff80",
+  },
 }));
 
 const OutletWrapper = styled("div")({
@@ -62,7 +74,7 @@ const AppLayout = () => {
         <SideBar>
           <ContentBox>
             <LibraryHead />
-            <EmptyPlaylist />
+            <Library />
           </ContentBox>
         </SideBar>
         <OutletWrapper>
