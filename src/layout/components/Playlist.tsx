@@ -13,7 +13,7 @@ interface PlaylistProps {
 const PlaylistContainer = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  padding: "8px",
+  paddingInline: "8px",
 }));
 
 const PlaylistItem = styled("div")(({ theme }) => ({

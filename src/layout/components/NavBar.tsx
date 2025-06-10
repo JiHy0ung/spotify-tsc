@@ -8,206 +8,183 @@ import LoginButton from "../../common/components/LoginButton";
 import { getSpotifyAuthUrl } from "../../utils/auth";
 import useGetCurrentUserProfile from "../../hooks/useGetCurrentUserProfile";
 
+const NavContainerCenter = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
+const NavBarContainer = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%",
+  height: "64px",
+  padding: "8px",
+  [theme.breakpoints.down("xl")]: {
+    height: "56px",
+    padding: "0px",
+  },
+}));
+
+const NavIcon = styled(NavLink)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  fill: theme.palette.secondary.main,
+}));
+
+const NavIconArea = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "48px",
+  height: "48px",
+  backgroundColor: "#1f1f1f",
+  borderRadius: "30px",
+  cursor: "pointer",
+  "&:hover": {
+    transform: "scale(1.05)",
+  },
+});
+
+const NavSearchBar = styled("div")(({ theme }) => ({
+  width: "474px",
+  height: "48px",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  backgroundColor: "#1f1f1f",
+  borderRadius: "30px",
+  padding: "0px 12px",
+  marginInline: "8px",
+  [theme.breakpoints.down("xl")]: {
+    display: "none",
+  },
+}));
+
+const NavDesktopImage = styled("img")(({ theme }) => ({
+  height: "32px",
+  paddingInline: "20px",
+  [theme.breakpoints.down("xl")]: {
+    display: "none",
+  },
+}));
+
+const NavMobileImage = styled("img")(({ theme }) => ({
+  height: "24px",
+  [theme.breakpoints.up("xl")]: {
+    display: "none",
+  },
+}));
+
+const NavSearchBox = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  [theme.breakpoints.down("xl")]: {
+    display: "none",
+  },
+}));
+
+const NavDesktopWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  flex: "1",
+  [theme.breakpoints.down("xl")]: {
+    display: "none",
+  },
+}));
+
+const NavMobileWrapper = styled("div")(({ theme }) => ({
+  width: "100%",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  paddingInline: "16px",
+  [theme.breakpoints.up("xl")]: {
+    display: "none",
+  },
+  [theme.breakpoints.up("lg")]: {
+    paddingLeft: "16px",
+    paddingRight: "8px",
+  },
+}));
+
+const NavMobileButtons = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "16px",
+}));
+
+const NavOpenAppButton = styled("button")(({ theme }) => ({
+  color: "#000000",
+  fontSize: "13px",
+  fontWeight: "800",
+  padding: "8px 16px",
+  outline: "none",
+  border: "none",
+  borderRadius: "30px",
+  backgroundColor: theme.palette.secondary.main,
+  cursor: "pointer",
+  "&:hover": {
+    backgroundColor: "#f0f0f0",
+    transform: "scale(1.05)",
+  },
+}));
+
+const NavHamburgerButton = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  fill: theme.palette.secondary.main,
+  "&:hover": {
+    transform: "scale(1.05)",
+  },
+}));
+
+const NavProfileContainer = styled("img")(({ theme }) => ({
+  height: "48px",
+  width: "48px",
+  border: "8px solid #1f1f1f",
+  borderRadius: "50%",
+}));
+
+const NavProfileNoImageContainer = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  fontSize: "14px",
+  fontWeight: "700",
+  color: "black",
+  height: "48px",
+  width: "48px",
+  background: "#ff6437",
+  border: "8px solid #1f1f1f",
+  borderRadius: "50%",
+});
+
+const NavMobileLoginWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+}));
+
+const NavInfoSecond = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "24px",
+  color: "#b3b3b3",
+  fontWeight: "700",
+  fontSize: "0.875rme",
+  paddingRight: "16px",
+  borderLeft: "1px solid #000000",
+}));
+
 const NavBar = () => {
-  const NavContainerCenter = styled("div")({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  });
-
-  const NavBar = styled("div")(({ theme }) => ({
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    height: "64px",
-    padding: "8px",
-    [theme.breakpoints.down("xl")]: {
-      height: "56px",
-      padding: "0px",
-    },
-  }));
-
-  const NavIcon = styled(NavLink)(({ theme }) => ({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fill: theme.palette.secondary.main,
-  }));
-
-  const NavIconArea = styled("div")({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "48px",
-    height: "48px",
-    backgroundColor: "#1f1f1f",
-    borderRadius: "30px",
-    cursor: "pointer",
-    "&:hover": {
-      transform: "scale(1.05)",
-    },
-  });
-
-  const NavSearchBar = styled("div")(({ theme }) => ({
-    width: "474px",
-    height: "48px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#1f1f1f",
-    borderRadius: "30px",
-    padding: "0px 12px",
-    marginInline: "8px",
-    [theme.breakpoints.down("xl")]: {
-      display: "none",
-    },
-  }));
-
-  const NavDesktopImage = styled("img")(({ theme }) => ({
-    height: "32px",
-    paddingInline: "20px",
-    [theme.breakpoints.down("xl")]: {
-      display: "none",
-    },
-  }));
-
-  const NavMobileImage = styled("img")(({ theme }) => ({
-    height: "24px",
-    [theme.breakpoints.up("xl")]: {
-      display: "none",
-    },
-  }));
-
-  const NavSearchBox = styled("div")(({ theme }) => ({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    [theme.breakpoints.down("xl")]: {
-      display: "none",
-    },
-  }));
-
-  const NavDesktopWrapper = styled("div")(({ theme }) => ({
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flex: "1",
-    [theme.breakpoints.down("xl")]: {
-      display: "none",
-    },
-  }));
-
-  const NavMobileWrapper = styled("div")(({ theme }) => ({
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingInline: "16px",
-    [theme.breakpoints.up("xl")]: {
-      display: "none",
-    },
-    [theme.breakpoints.up("lg")]: {
-      paddingLeft: "16px",
-      paddingRight: "8px",
-    },
-  }));
-
-  const NavMobileButtons = styled("div")(({ theme }) => ({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "16px",
-  }));
-
-  const NavOpenAppButton = styled("button")(({ theme }) => ({
-    color: "#000000",
-    fontSize: "13px",
-    fontWeight: "800",
-    padding: "8px 16px",
-    outline: "none",
-    border: "none",
-    borderRadius: "30px",
-    backgroundColor: theme.palette.secondary.main,
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: "#f0f0f0",
-      transform: "scale(1.05)",
-    },
-  }));
-
-  const NavHamburgerButton = styled("div")(({ theme }) => ({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fill: theme.palette.secondary.main,
-    "&:hover": {
-      transform: "scale(1.05)",
-    },
-  }));
-
-  const NavProfileContainer = styled("img")(({ theme }) => ({
-    height: "48px",
-    width: "48px",
-    border: "8px solid #1f1f1f",
-    borderRadius: "50%",
-  }));
-
-  const NavProfileNoImageContainer = styled("div")({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: "14px",
-    fontWeight: "700",
-    color: "black",
-    height: "48px",
-    width: "48px",
-    background: "#ff6437",
-    border: "8px solid #1f1f1f",
-    borderRadius: "50%",
-  });
-
-  const NavMobileLoginWrapper = styled("div")(({ theme }) => ({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  }));
-
-  //   .layout-nav-info-2 {
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   gap: 8px;
-  //   color: #b3b3b3;
-  //   font-weight: 700;
-  //   font-size: 0.875rem;
-  //   margin-left: 16px;
-  //   padding-left: 26px;
-  //   border-left: 1px solid white;
-  // }
-
-  // .layout-nav-info-2 div {
-  //   padding: 4px 16px 4px 8px;
-  //   gap: 8px;
-  //   cursor: pointer;
-  // }
-
-  // .layout-nav-info-2 div:hover {
-  //   color: white;
-  // }
-
-  const NavInfoSecond = styled("div")(({ theme }) => ({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "24px",
-    color: "#b3b3b3",
-    fontWeight: "700",
-    fontSize: "0.875rme",
-    paddingRight: "16px",
-    borderLeft: "1px solid #000000",
-  }));
-
   const { data: userProfile } = useGetCurrentUserProfile();
 
   const login = () => {
@@ -215,7 +192,7 @@ const NavBar = () => {
   };
 
   return (
-    <NavBar>
+    <NavBarContainer>
       {userProfile ? (
         <NavMobileWrapper>
           <NavIcon to="/">
@@ -381,7 +358,7 @@ const NavBar = () => {
           </NavContainerCenter>
         )}
       </NavDesktopWrapper>
-    </NavBar>
+    </NavBarContainer>
   );
 };
 

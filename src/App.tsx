@@ -3,7 +3,7 @@ import React, { Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router";
 import SearchWithKeywordPage from "./pages/SearchWithKeywordPage/SearchWithKeywordPage";
 import PlaylistDetailPage from "./pages/PlaylistDetailPage/PlaylistDetailPage";
-import Playlist from "./pages/Playlist/Playlist";
+import PlaylistPage from "./pages/PlaylistPage/PlaylistPage";
 import Loading from "./common/components/Loading";
 import useExchangeToken from "./hooks/useExchangeToken";
 
@@ -43,7 +43,7 @@ function App() {
           <Route path="search" element={<SearchPage />} />
           <Route path="search/:keyword" element={<SearchWithKeywordPage />} />
           <Route path="playlist/:id" element={<PlaylistDetailPage />} />
-          <Route path="playlist" element={<Playlist />} />
+          <Route path="playlist" element={<PlaylistPage />} />
         </Route>
       </Routes>
     </Suspense>
