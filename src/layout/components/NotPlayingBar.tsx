@@ -55,7 +55,7 @@ const MobileTabIcon = styled("svg")<{ active: boolean }>(
   })
 );
 
-const NotPlayingBarLogin = styled("div")({
+const NotPlayingBarLogin = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -68,7 +68,10 @@ const NotPlayingBarLogin = styled("div")({
   margin: "8px",
   background: "#121212",
   color: "#b3b3b3",
-});
+  [theme.breakpoints.down("xl")]: {
+    display: "none",
+  },
+}));
 
 const TextDecoration = styled("span")({
   fontSize: "13px",
@@ -97,7 +100,9 @@ const NotPlayingBar = () => {
           <TextDecoration>개인정보 처리방침</TextDecoration>
           <Typography fontSize={"13px"}>과 </Typography>
           <TextDecoration>서비스 약관이</TextDecoration>
-          <Typography fontSize={"13px"}>적용됩니다. (임시 플레잉 바)</Typography>
+          <Typography fontSize={"13px"}>
+            적용됩니다. (임시 플레잉 바)
+          </Typography>
         </NotPlayingBarLogin>
       ) : (
         <>
