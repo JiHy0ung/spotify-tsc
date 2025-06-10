@@ -28,6 +28,7 @@ const PlaylistHeaderTextArea = styled("div")(({ theme }) => ({
   justifyContent: "center",
   flexDirection: "column",
   borderRadius: "8px",
+  zIndex: 3,
   [theme.breakpoints.up("xl")]: {
     alignSelf: "flex-end",
   },
@@ -48,7 +49,7 @@ const PlaylistHeaderBackground = styled("div")(
     backgroundPosition: "center",
     filter: "blur(100px)",
     opacity: 1,
-    zIndex: -1,
+    zIndex: 2,
     transform: "scale(2)",
     borderRadius: "8px",
   })
@@ -60,6 +61,7 @@ const PlaylistHeaderCoverImage = styled("img")(({ theme }) => ({
   width: "172px",
   height: "172px",
   boxShadow: "0 4px 60px rgba(0, 0, 0, 0.5)",
+  zIndex: 3,
   [theme.breakpoints.up("xl")]: {
     alignSelf: "flex-start",
     width: "232px",
@@ -89,7 +91,7 @@ const PlaylistHeaderUserImage = styled("img")({
   borderRadius: "50%",
 });
 
-const PlaylistHeaderCoverNoImageArea = styled("div")({
+const PlaylistHeaderCoverNoImageArea = styled("div")(({ theme }) => ({
   display: "flex",
   alignSelf: "center",
   justifyContent: "center",
@@ -97,7 +99,24 @@ const PlaylistHeaderCoverNoImageArea = styled("div")({
   width: "172px",
   height: "172px",
   backgroundColor: "#282828",
-});
+  [theme.breakpoints.up("xl")]: {
+    alignSelf: "flex-start",
+    width: "232px",
+    height: "232px",
+    minWidth: "232px",
+    minHeight: "232px",
+    borderRadius: "4px",
+    marginBottom: "0px",
+  },
+  [theme.breakpoints.down("xl")]: {
+    width: "288px",
+    height: "288px",
+  },
+  [theme.breakpoints.down("lg")]: {
+    width: "172px",
+    height: "172px",
+  },
+}));
 
 const PlaylistHeaderCoverNoImage = styled("svg")({
   width: "64px",
@@ -173,8 +192,8 @@ const PlaylistDetailHeader = ({
           {name}
         </Typography>
         <PlaylistHeaderUserInfo>
-          <PlaylistHeaderUserImage src={user?.images?.[0].url} />
-          <Typography>{user?.display_name}</Typography>
+          {/* <PlaylistHeaderUserImage src={user?.images?.[0].url} /> */}
+          <Typography>{owner}</Typography>
           <Typography fontSize={"13px"}>• 총 {total}곡</Typography>
         </PlaylistHeaderUserInfo>
       </PlaylistHeaderTextArea>

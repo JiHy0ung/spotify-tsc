@@ -5,11 +5,13 @@ import PlaylistDetailHeader from "./PlaylistDetailHeader";
 import { styled } from "@mui/system";
 
 const PlaylistDetailContainer = styled("div")({
+  height: "100%",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  justifyContent: "flex-start",
   padding: "16px",
   borderRadius: "8px",
+  backgroundColor: "#121212",
 });
 
 const PlaylistDetailPage = () => {
@@ -24,10 +26,10 @@ const PlaylistDetailPage = () => {
   return (
     <PlaylistDetailContainer>
       <PlaylistDetailHeader
-        name={playlist?.name}
-        image={playlist?.images[0].url}
-        owner={playlist?.owner?.display_name}
-        total={playlist?.tracks?.total}
+        name={playlist?.name || "unknown"}
+        image={playlist?.images?.[0].url || ""}
+        owner={playlist?.owner?.display_name || "unknown"}
+        total={playlist?.tracks?.total || 0}
       />
     </PlaylistDetailContainer>
   );

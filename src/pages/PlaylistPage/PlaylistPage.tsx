@@ -7,6 +7,7 @@ const PlaylistContainer = styled("div")({
   flexDirection: "column",
   padding: "8px",
   borderRadius: "8px",
+  backgroundColor: "#121212",
 });
 
 const PlaylistTitle = styled("div")({
