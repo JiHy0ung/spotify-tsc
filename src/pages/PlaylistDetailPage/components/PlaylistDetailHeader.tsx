@@ -144,6 +144,9 @@ const PlaylistHeaderButtonIconsContainer = styled("div")(({ theme }) => ({
   width: "100%",
   height: "56px",
   zIndex: 5,
+  [theme.breakpoints.up("xl")]: {
+    display: "none",
+  },
 }));
 
 const PlaylistHeaderButtonsArea = styled("div")({
