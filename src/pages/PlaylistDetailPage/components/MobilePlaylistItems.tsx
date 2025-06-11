@@ -74,9 +74,11 @@ const MobilePlaylistItems = ({ item, index }: MobilePlaylistItemProps) => {
           />
           <MobilePlaylistItemsSongInfoArea>
             <Typography variant="h2" fontWeight={400}>
-              {(item.track.name?.length > 30
-                ? item.track.name.slice(0, 30) + "..."
-                : item.track.name) || "Unknown"}
+              {item.track.name
+                ? item.track.name.length > 20
+                  ? item.track.name.slice(0, 20) + "..."
+                  : item.track.name
+                : "Unknown"}
             </Typography>
             <Typography fontSize={"0.8125rem"} color="#b3b3b3">
               {isEpisode(item.track) ? "Unknown" : item.track.artists?.[0].name}

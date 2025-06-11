@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import useGetPlaylist from "../../hooks/useGetPlaylist";
 import { Navigate, useParams } from "react-router";
-import { margin, style, styled } from "@mui/system";
+import { display, margin, style, styled } from "@mui/system";
 import useGetPlaylistItems from "../../hooks/useGetPlaylistItems";
 import {
   Table,
@@ -17,6 +17,7 @@ import { PAGE_LIMIT } from "../../configs/commonConfig";
 import { InView, useInView } from "react-intersection-observer";
 import Loading from "../../common/components/Loading";
 import MobilePlaylistItems from "./components/MobilePlaylistItems";
+import useGetCurrentUserProfile from "../../hooks/useGetCurrentUserProfile";
 
 const PlaylistDetailContainer = styled("div")(({ theme }) => ({
   height: "100%",
@@ -42,21 +43,29 @@ const PlaylistDetailContainer = styled("div")(({ theme }) => ({
 }));
 
 const PlaylistDetailTableArea = styled("div")(({ theme }) => ({
-  background: "#12121280",
+  background: "#12121233",
   zIndex: 999,
   padding: "0px 24px",
   [theme.breakpoints.down("xl")]: {
     background:
-      "linear-gradient(to bottom, rgba(18, 18, 18, 0) 0%, rgba(18, 18, 18, 1) 8%)",
+      "linear-gradient(to bottom, rgba(18, 18, 18, 0) 0%, rgba(18, 18, 18, 1) 10%)",
     padding: "0px 4px",
   },
 }));
 
-const EmptySpace = styled("div")({
+const EmptySpace = styled("div")(({ theme }) => ({
   height: "16px",
-});
+  [theme.breakpoints.down("xl")]: {
+    display: "none",
+  },
+}));
 
 const StyledTable = styled(Table)({});
+const StyledTableHead = styled(TableHead)(({ theme }) => ({
+  [theme.breakpoints.down("xl")]: {
+    display: "none",
+  },
+}));
 
 const StyledHeaderCell = styled(TableCell)({
   height: "36px",
@@ -78,6 +87,7 @@ const PlaylistDetailPlayTimeIcon = styled("svg")({
 const PlaylistDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { ref, inView } = useInView();
+  const { data: user } = useGetCurrentUserProfile();
 
   const { data: playlist } = useGetPlaylist({ playlist_id: id || "" });
   const {
@@ -95,6 +105,7 @@ const PlaylistDetailPage = () => {
     }
   }, [inView, fetchNextPage, hasNextPage, isFetchingNextPage]);
 
+  console.log("user", user);
   console.log("pp", playlist);
   console.log("pi", playlistItems);
 
@@ -114,7 +125,7 @@ const PlaylistDetailPage = () => {
       ) : (
         <PlaylistDetailTableArea>
           <StyledTable>
-            <TableHead sx={{ display: { xs: "none" } }}>
+            <StyledTableHead>
               <TableRow>
                 <StyledHeaderCell>#</StyledHeaderCell>
                 <StyledHeaderCell>제목</StyledHeaderCell>
@@ -131,7 +142,7 @@ const PlaylistDetailPage = () => {
                   </PlaylistDetailPlayTimeIcon>
                 </StyledHeaderCell>
               </TableRow>
-            </TableHead>
+            </StyledTableHead>
             <EmptySpace></EmptySpace>
             <TableBody>
               {playlistItems?.pages.map((page, pageIndex) =>
