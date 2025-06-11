@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import useGetPlaylist from "../../hooks/useGetPlaylist";
 import { Navigate, useParams } from "react-router";
-import { styled } from "@mui/system";
+import { margin, style, styled } from "@mui/system";
 import useGetPlaylistItems from "../../hooks/useGetPlaylistItems";
 import {
   Table,
@@ -22,9 +22,36 @@ const PlaylistDetailContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
   justifyContent: "flex-start",
-  padding: "16px",
   borderRadius: "8px",
   backgroundColor: "#121212",
+  overflowY: "auto",
+  overflowX: "hidden",
+  zIndex: "5",
+
+  "&::-webkit-scrollbar": {
+    display: "none",
+  },
+  scrollbarWidth: "none",
+  msOverflowStyle: "none",
+});
+
+const PlaylistDetailTableArea = styled("div")({
+  background: "#12121280",
+  zIndex: 999,
+  padding: "0px 24px",
+});
+
+const StyledTable = styled(Table)({});
+
+const StyledHeaderCell = styled(TableCell)({
+  color: "#b3b3b3",
+  borderBottom: "1px solid #ffffff33",
+});
+
+const PlaylistDetailPlayTimeIcon = styled("svg")({
+  width: "16px",
+  height: "16px",
+  fill: "#b3b3b3",
 });
 
 const PlaylistDetailPage = () => {
@@ -64,30 +91,41 @@ const PlaylistDetailPage = () => {
       {playlist?.tracks?.total === 0 ? (
         <Typography>Search</Typography>
       ) : (
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>#</TableCell>
-              <TableCell>제목</TableCell>
-              <TableCell>앨범</TableCell>
-              <TableCell>추가한 날짜</TableCell>
-              <TableCell>재생 시간(아이콘)</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {playlistItems?.pages.map((page, pageIndex) =>
-              page.items.map((item, itemIndex) => {
-                return (
-                  <DesktopPlaylistItem
-                    item={item}
-                    key={pageIndex * PAGE_LIMIT + itemIndex + 1}
-                    index={pageIndex * PAGE_LIMIT + itemIndex + 1}
-                  />
-                );
-              })
-            )}
-          </TableBody>
-        </Table>
+        <PlaylistDetailTableArea>
+          <StyledTable>
+            <TableHead>
+              <TableRow>
+                <StyledHeaderCell>#</StyledHeaderCell>
+                <StyledHeaderCell>제목</StyledHeaderCell>
+                <StyledHeaderCell>앨범</StyledHeaderCell>
+                <StyledHeaderCell>추가한 날짜</StyledHeaderCell>
+                <StyledHeaderCell>
+                  <PlaylistDetailPlayTimeIcon
+                    role="img"
+                    aria-hidden="true"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"></path>
+                    <path d="M8 3.25a.75.75 0 0 1 .75.75v3.25H11a.75.75 0 0 1 0 1.5H7.25V4A.75.75 0 0 1 8 3.25z"></path>
+                  </PlaylistDetailPlayTimeIcon>
+                </StyledHeaderCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {playlistItems?.pages.map((page, pageIndex) =>
+                page.items.map((item, itemIndex) => {
+                  return (
+                    <DesktopPlaylistItem
+                      item={item}
+                      key={pageIndex * PAGE_LIMIT + itemIndex + 1}
+                      index={pageIndex * PAGE_LIMIT + itemIndex + 1}
+                    />
+                  );
+                })
+              )}
+            </TableBody>
+          </StyledTable>
+        </PlaylistDetailTableArea>
       )}
       <div ref={ref}>{isFetchingNextPage && <Loading />}</div>
     </PlaylistDetailContainer>

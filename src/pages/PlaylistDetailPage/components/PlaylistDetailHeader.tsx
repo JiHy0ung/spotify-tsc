@@ -9,11 +9,13 @@ const PlaylistDetailHeaderContainer = styled("div")(({ theme }) => ({
   alignItems: "flex-start",
   gap: "8px",
   padding: "24px 12px",
+  margin: "16px",
   borderRadius: "8px",
   [theme.breakpoints.up("xl")]: {
     flexDirection: "row",
     alignItems: "center",
     gap: "24px",
+    borderRadius: "0px",
   },
   [theme.breakpoints.down("xl")]: {
     padding: "0px",
@@ -193,7 +195,9 @@ const PlaylistDetailHeader = ({
         <PlaylistHeaderUserInfo>
           {/* <PlaylistHeaderUserImage src={user?.images?.[0].url} /> */}
           <Typography>{owner}</Typography>
-          <Typography fontSize={"13px"}>• 저장 횟수: {follower} • 총 {total}곡</Typography>
+          <Typography fontSize={"13px"}>
+            • 저장 횟수: {follower} • 총 {total}곡
+          </Typography>
         </PlaylistHeaderUserInfo>
       </PlaylistHeaderTextArea>
     </PlaylistDetailHeaderContainer>
