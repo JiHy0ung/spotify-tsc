@@ -1,8 +1,9 @@
 import {
   GetCurrentUserPlaylistRequest,
   GetCurrentUserPlaylistResponse,
+  GetPlaylistItemsRequest,
   GetPlaylistRequest,
-  Playlist,
+  PlaylistItemsResponse,
 } from "../models/playlist";
 import api from "../utils/api";
 
@@ -22,7 +23,7 @@ export const getCurrentUserPlaylists = async ({
 
 export const getPlaylist = async (
   params: GetPlaylistRequest
-): Promise<Playlist> => {
+): Promise<GetCurrentUserPlaylistResponse> => {
   try {
     const response = await api.get(`/playlists/${params.playlist_id}`, {
       params,
@@ -30,5 +31,18 @@ export const getPlaylist = async (
     return response.data;
   } catch (error) {
     throw new Error("Failed to fetch playlist detail.");
+  }
+};
+
+export const getPlaylistItems = async (
+  params: GetPlaylistItemsRequest
+): Promise<PlaylistItemsResponse> => {
+  try {
+    const response = await api.get(`/playlists/${params.playlist_id}/tracks`, {
+      params,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch playlist item.");
   }
 };

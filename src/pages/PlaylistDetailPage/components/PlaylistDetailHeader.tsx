@@ -1,6 +1,5 @@
 import React from "react";
 import { styled, Typography } from "@mui/material";
-import useGetCurrentUserProfile from "../../hooks/useGetCurrentUserProfile";
 
 const PlaylistDetailHeaderContainer = styled("div")(({ theme }) => ({
   position: "relative",
@@ -128,6 +127,7 @@ interface PlaylistDetailItemProps {
   name: string;
   image: string | null;
   owner: string | null;
+  follower: number;
   total: number;
 }
 
@@ -135,10 +135,9 @@ const PlaylistDetailHeader = ({
   name,
   image,
   owner,
+  follower,
   total,
 }: PlaylistDetailItemProps) => {
-  const { data: user } = useGetCurrentUserProfile();
-
   return (
     <PlaylistDetailHeaderContainer>
       {image && <PlaylistHeaderBackground backgroundImage={image} />}
@@ -194,7 +193,7 @@ const PlaylistDetailHeader = ({
         <PlaylistHeaderUserInfo>
           {/* <PlaylistHeaderUserImage src={user?.images?.[0].url} /> */}
           <Typography>{owner}</Typography>
-          <Typography fontSize={"13px"}>• 총 {total}곡</Typography>
+          <Typography fontSize={"13px"}>• 저장 횟수: {follower} • 총 {total}곡</Typography>
         </PlaylistHeaderUserInfo>
       </PlaylistHeaderTextArea>
     </PlaylistDetailHeaderContainer>

@@ -8,7 +8,6 @@ interface PlaylistProps {
 }
 
 const Playlist = ({ playlists }: PlaylistProps) => {
-  console.log("playlist", playlists);
   const navigate = useNavigate();
 
   const handleClick = (id: string) => {

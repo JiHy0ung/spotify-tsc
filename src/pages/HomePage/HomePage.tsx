@@ -68,8 +68,6 @@ const HomePageBannerButton = styled("button")(({ theme }) => ({
 const HomePage = () => {
   const { data: userProfile } = useGetCurrentUserProfile();
 
-  console.log("data", userProfile);
-
   return (
     <HomePageWrapper>
       <HomePageContainer>

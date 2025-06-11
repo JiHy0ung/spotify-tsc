@@ -41,8 +41,6 @@ const NewReleases = () => {
     return <ErrorMessage errorMessage={newReleasesError.message} />;
   }
 
-  console.log("ddd", newReleasesData);
-
   return (
     <div>
       <HeaderContainer>

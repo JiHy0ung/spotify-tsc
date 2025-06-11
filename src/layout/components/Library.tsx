@@ -25,10 +25,9 @@ const Library = () => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage(); // 자동으로 offset을 바꿔줌.
     }
-  }, [inView]);
+  }, [inView, fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   if (!user) return <EmptyPlaylist />;
-  console.log("playlist", userPlaylists);
 
   return (
     <>
