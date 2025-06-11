@@ -16,6 +16,7 @@ import DesktopPlaylistItem from "./components/DesktopPlaylistItem";
 import { PAGE_LIMIT } from "../../configs/commonConfig";
 import { InView, useInView } from "react-intersection-observer";
 import Loading from "../../common/components/Loading";
+import MobilePlaylistItems from "./components/MobilePlaylistItems";
 
 const PlaylistDetailContainer = styled("div")(({ theme }) => ({
   height: "100%",
@@ -29,6 +30,7 @@ const PlaylistDetailContainer = styled("div")(({ theme }) => ({
   zIndex: "5",
 
   [theme.breakpoints.down("xl")]: {
+    paddingBottom: "70px",
     borderRadius: "0px",
   },
 
@@ -39,11 +41,16 @@ const PlaylistDetailContainer = styled("div")(({ theme }) => ({
   msOverflowStyle: "none",
 }));
 
-const PlaylistDetailTableArea = styled("div")({
+const PlaylistDetailTableArea = styled("div")(({ theme }) => ({
   background: "#12121280",
   zIndex: 999,
   padding: "0px 24px",
-});
+  [theme.breakpoints.down("xl")]: {
+    background:
+      "linear-gradient(to bottom, rgba(18, 18, 18, 0) 0%, rgba(18, 18, 18, 1) 8%)",
+    padding: "0px 4px",
+  },
+}));
 
 const EmptySpace = styled("div")({
   height: "16px",
@@ -107,7 +114,7 @@ const PlaylistDetailPage = () => {
       ) : (
         <PlaylistDetailTableArea>
           <StyledTable>
-            <TableHead>
+            <TableHead sx={{ display: { xs: "none" } }}>
               <TableRow>
                 <StyledHeaderCell>#</StyledHeaderCell>
                 <StyledHeaderCell>제목</StyledHeaderCell>
@@ -130,11 +137,17 @@ const PlaylistDetailPage = () => {
               {playlistItems?.pages.map((page, pageIndex) =>
                 page.items.map((item, itemIndex) => {
                   return (
-                    <DesktopPlaylistItem
-                      item={item}
-                      key={pageIndex * PAGE_LIMIT + itemIndex + 1}
-                      index={pageIndex * PAGE_LIMIT + itemIndex + 1}
-                    />
+                    <>
+                      <DesktopPlaylistItem
+                        item={item}
+                        key={pageIndex * PAGE_LIMIT + itemIndex + 1}
+                        index={pageIndex * PAGE_LIMIT + itemIndex + 1}
+                      />
+                      <MobilePlaylistItems
+                        item={item}
+                        index={pageIndex * PAGE_LIMIT + itemIndex + 1}
+                      />
+                    </>
                   );
                 })
               )}

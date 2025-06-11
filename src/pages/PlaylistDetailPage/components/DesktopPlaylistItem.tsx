@@ -8,7 +8,7 @@ interface DesktopPlaylistItemProps {
   index: number;
 }
 
-const StyledTableRow = styled(TableRow)({
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
   borderRadius: "4px",
   "&:hover": {
     "& td": {
@@ -26,7 +26,11 @@ const StyledTableRow = styled(TableRow)({
       color: "#ffffff",
     },
   },
-});
+
+  [theme.breakpoints.down("xl")]: {
+    display: "none",
+  },
+}));
 
 const StyledTableCell = styled(TableCell)({
   color: "#ffffff",
@@ -81,8 +85,6 @@ const DesktopPlaylistItem = ({ item, index }: DesktopPlaylistItemProps) => {
   let month = "0";
   let day = "0";
 
-  //2024-03-07T15:14:23Z
-
   if (item.added_at) {
     year = item.added_at.slice(0, 4);
     month = item.added_at.slice(5, 7);
@@ -109,6 +111,9 @@ const DesktopPlaylistItem = ({ item, index }: DesktopPlaylistItemProps) => {
         <StyledTableTypography variant="h2" fontWeight={400}>
           {item.track.name || "No Name"}
         </StyledTableTypography>
+        <Typography fontSize={"0.8125rem"} color="#b3b3b3">
+          {isEpisode(item.track) ? "Unknown" : item.track.artists?.[0].name}
+        </Typography>
       </StyledTableCellTitle>
       {/* <TableCell>{item.track.album?.name}</TableCell> 유니온 타입의 문제 때문에 아래 코드처럼 작성*/}
       <StyledTableCell>
