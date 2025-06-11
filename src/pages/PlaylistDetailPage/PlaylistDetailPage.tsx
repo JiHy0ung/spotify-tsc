@@ -17,7 +17,7 @@ import { PAGE_LIMIT } from "../../configs/commonConfig";
 import { InView, useInView } from "react-intersection-observer";
 import Loading from "../../common/components/Loading";
 
-const PlaylistDetailContainer = styled("div")({
+const PlaylistDetailContainer = styled("div")(({ theme }) => ({
   height: "100%",
   display: "flex",
   flexDirection: "column",
@@ -28,12 +28,16 @@ const PlaylistDetailContainer = styled("div")({
   overflowX: "hidden",
   zIndex: "5",
 
+  [theme.breakpoints.down("xl")]: {
+    borderRadius: "0px",
+  },
+
   "&::-webkit-scrollbar": {
     display: "none",
   },
   scrollbarWidth: "none",
   msOverflowStyle: "none",
-});
+}));
 
 const PlaylistDetailTableArea = styled("div")({
   background: "#12121280",
@@ -41,14 +45,24 @@ const PlaylistDetailTableArea = styled("div")({
   padding: "0px 24px",
 });
 
+const EmptySpace = styled("div")({
+  height: "16px",
+});
+
 const StyledTable = styled(Table)({});
 
 const StyledHeaderCell = styled(TableCell)({
+  height: "36px",
+  padding: "0px 16px",
+  marginBottom: "16px",
   color: "#b3b3b3",
   borderBottom: "1px solid #ffffff33",
 });
 
 const PlaylistDetailPlayTimeIcon = styled("svg")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   width: "16px",
   height: "16px",
   fill: "#b3b3b3",
@@ -111,6 +125,7 @@ const PlaylistDetailPage = () => {
                 </StyledHeaderCell>
               </TableRow>
             </TableHead>
+            <EmptySpace></EmptySpace>
             <TableBody>
               {playlistItems?.pages.map((page, pageIndex) =>
                 page.items.map((item, itemIndex) => {

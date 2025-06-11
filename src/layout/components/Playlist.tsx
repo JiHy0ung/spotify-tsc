@@ -2,6 +2,7 @@ import React from "react";
 import { SimplifiedPlaylist } from "../../models/playlist";
 import PlaylistItem from "../../common/components/PlaylistItem";
 import { useNavigate } from "react-router";
+import { styled } from "@mui/material";
 
 interface PlaylistProps {
   playlists: SimplifiedPlaylist[];
@@ -15,7 +16,7 @@ const Playlist = ({ playlists }: PlaylistProps) => {
   };
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       {playlists.map((playlist) => (
         <PlaylistItem
           name={playlist.name || ""}

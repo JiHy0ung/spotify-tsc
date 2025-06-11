@@ -5,6 +5,13 @@ import Playlist from "./Playlist";
 import useGetCurrentUserProfile from "../../hooks/useGetCurrentUserProfile";
 import { useInView } from "react-intersection-observer";
 import Loading from "../../common/components/Loading";
+import { styled } from "@mui/material";
+
+const EmptyTabArea = styled("div")(({ theme }) => ({
+  [theme.breakpoints.down("xl")]: {
+    height: "70px",
+  },
+}));
 
 const Library = () => {
   const { ref, inView } = useInView(); // 무한 스크롤 라이브러리
@@ -39,6 +46,7 @@ const Library = () => {
             <Playlist playlists={page.items} key={index} />
           ))}
           <div ref={ref}>{isFetchingNextPage && <Loading />}</div>
+          <EmptyTabArea></EmptyTabArea>
         </>
       )}
     </>
