@@ -78,3 +78,10 @@ export interface SimplifiedAlbum {
   uri: string;
   artists: Artist[];
 }
+
+export interface CreatePlaylistRequest {
+  name: string;
+  playlistPublic?: boolean; // 객체지향에서 쓰이는 public과 이름이 겹치기 떄문에 public -> playlistPublic으로 이름 수정.
+  collaborative?: boolean;
+  description?: string;
+}

@@ -18,6 +18,7 @@ import { InView, useInView } from "react-intersection-observer";
 import Loading from "../../common/components/Loading";
 import MobilePlaylistItems from "./components/MobilePlaylistItems";
 import useGetCurrentUserProfile from "../../hooks/useGetCurrentUserProfile";
+import GoToLogin from "../../common/components/GoToLogin";
 
 const PlaylistDetailContainer = styled("div")(({ theme }) => ({
   height: "100%",
@@ -41,6 +42,14 @@ const PlaylistDetailContainer = styled("div")(({ theme }) => ({
   scrollbarWidth: "none",
   msOverflowStyle: "none",
 }));
+
+const PlaylistDetailLogin = styled("div")({
+  height: "100%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "#121212",
+});
 
 const PlaylistDetailTableArea = styled("div")(({ theme }) => ({
   background: "#12121233",
@@ -93,7 +102,7 @@ const PlaylistDetailPage = () => {
   const {
     data: playlistItems,
     isLoading: isPlaylistItemsLoading,
-    error: playlistItemsLoading,
+    error: playlistItemsError,
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
@@ -110,6 +119,13 @@ const PlaylistDetailPage = () => {
   console.log("pi", playlistItems);
 
   if (id === undefined) return <Navigate to="/" />;
+  if (!user && !playlist) {
+    return (
+      <PlaylistDetailLogin>
+        <GoToLogin />
+      </PlaylistDetailLogin>
+    );
+  }
 
   return (
     <PlaylistDetailContainer>

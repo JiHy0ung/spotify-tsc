@@ -13,7 +13,6 @@ const PlaylistDetailHeaderContainer = styled("div")(({ theme }) => ({
   margin: "16px",
   borderRadius: "8px",
   [theme.breakpoints.up("xl")]: {
-    flexDirection: "row",
     alignItems: "center",
     gap: "24px",
     borderRadius: "0px",
@@ -51,7 +50,7 @@ const PlaylistHeaderBackground = styled("div")(
       : "none",
     backgroundSize: "cover",
     backgroundPosition: "center",
-    filter: "blur(30px) saturate(1.5)",
+    filter: "blur(70px) saturate(1.5)",
     opacity: 0.8,
     zIndex: 2,
     transform: "scale(2)",
@@ -130,6 +129,7 @@ const PlaylistHeaderCoverNoImage = styled("svg")({
 
 const PlaylistHeaderInfoText = styled("div")(({ theme }) => ({
   display: "flex",
+  justifyContent: "center",
   gap: "3px",
   [theme.breakpoints.down("xl")]: {
     flexDirection: "column",
@@ -137,7 +137,7 @@ const PlaylistHeaderInfoText = styled("div")(({ theme }) => ({
   },
 }));
 
-const PlaylistHeaderButtonIconsContainer = styled("div")(({ theme }) => ({
+const MobilePlaylistHeaderButtonIconsContainer = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
@@ -148,6 +148,27 @@ const PlaylistHeaderButtonIconsContainer = styled("div")(({ theme }) => ({
     display: "none",
   },
 }));
+
+const DesktopPlaylistHeaderButtonIconsContainer = styled("div")(
+  ({ theme }) => ({
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    height: "56px",
+    zIndex: 5,
+    [theme.breakpoints.down("xl")]: {
+      display: "none",
+    },
+  })
+);
+
+const DesktopPlaylistHeaderContainer = styled("div")({
+  display: "flex",
+  justifyContent: "flex-start",
+  gap: "24px",
+  width: "100%",
+});
 
 const PlaylistHeaderButtonsArea = styled("div")({
   display: "flex",
@@ -166,6 +187,7 @@ const PlaylistHeaderButtons = styled("button")({
   border: "none",
   outline: "none",
   transition: "all 0.5s",
+  cursor: "pointer",
   "&:hover": {
     "& svg": { fill: "#ffffff" },
     transform: "scale(1.05)",
@@ -183,6 +205,29 @@ const PlaylistHeaderPlayButton = styled("button")(({ theme }) => ({
   border: "none",
   outline: "none",
   backgroundColor: theme.palette.primary.main,
+  cursor: "pointer",
+  "&:hover": {
+    backgroundColor: "#3be477",
+    transform: "scale(1.05)",
+  },
+}));
+
+const DesktopPlaylistHeaderPlayButton = styled("button")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "56px",
+  height: "56px",
+  padding: "12px 0px",
+  background: "none",
+  border: "none",
+  outline: "none",
+  transition: "all 0.5s",
+  cursor: "pointer",
+  "&:hover": {
+    "& svg": { fill: "#ffffff" },
+    transform: "scale(1.05)",
+  },
 }));
 
 const PlaylistHeaderPlayButtonIcon = styled("svg")(({ theme }) => ({
@@ -192,10 +237,39 @@ const PlaylistHeaderPlayButtonIcon = styled("svg")(({ theme }) => ({
 const PlaylistHeaderLikeIcon = styled("svg")(({ theme }) => ({
   width: "24px",
   fill: theme.palette.primary.main,
+  [theme.breakpoints.up("xl")]: {
+    display: "none",
+  },
 }));
 
 const PlaylistHeaderIcon = styled("svg")(({ theme }) => ({
   width: "24px",
+  fill: "#b3b3b3",
+  [theme.breakpoints.up("xl")]: {
+    display: "none",
+  },
+}));
+
+const DesktopPlaylistHeaderButtons = styled("button")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "56px",
+  height: "56px",
+  padding: "0px 12px",
+  background: "none",
+  border: "none",
+  outline: "none",
+  transition: "all 0.5s",
+  cursor: "pointer",
+  "&:hover": {
+    "& svg": { fill: "#ffffff" },
+    transform: "scale(1.05)",
+  },
+});
+
+const DesktopPlaylistHeaderIcon = styled("svg")(({ theme }) => ({
+  width: "32px",
   fill: "#b3b3b3",
 }));
 
@@ -217,69 +291,114 @@ const PlaylistDetailHeader = ({
   return (
     <PlaylistDetailHeaderContainer>
       {image && <PlaylistHeaderBackground backgroundImage={image} />}
-      {image ? (
-        <PlaylistHeaderCoverImage src={image} />
-      ) : (
-        <PlaylistHeaderCoverNoImageArea>
-          <PlaylistHeaderCoverNoImage viewBox="0 0 24 24">
-            <path d="M6 3h15v15.167a3.5 3.5 0 1 1-3.5-3.5H19V5H8v13.167a3.5 3.5 0 1 1-3.5-3.5H6V3zm0 13.667H4.5a1.5 1.5 0 1 0 1.5 1.5v-1.5zm13 0h-1.5a1.5 1.5 0 1 0 1.5 1.5v-1.5z"></path>
-          </PlaylistHeaderCoverNoImage>
-        </PlaylistHeaderCoverNoImageArea>
-      )}
-      <PlaylistHeaderTextArea>
-        <Typography
-          sx={{
-            display: {
-              xs: "none",
-              sm: "none",
-              md: "none",
-              lg: "none",
-              xl: "flex",
-            },
-          }}
-          color="#ffffff"
-          fontSize={"14px"}
-        >
-          공개 플레이리스트
-        </Typography>
-        <Typography
-          variant="h1"
-          letterSpacing={"-0.5px"}
-          sx={{
-            fontSize: {
-              xs: "24px",
-              sm: "24px",
-              md: "24px",
-              lg: "24px",
-              xl: "96px",
-            },
+      <DesktopPlaylistHeaderContainer>
+        {image ? (
+          <PlaylistHeaderCoverImage src={image} />
+        ) : (
+          <PlaylistHeaderCoverNoImageArea>
+            <PlaylistHeaderCoverNoImage viewBox="0 0 24 24">
+              <path d="M6 3h15v15.167a3.5 3.5 0 1 1-3.5-3.5H19V5H8v13.167a3.5 3.5 0 1 1-3.5-3.5H6V3zm0 13.667H4.5a1.5 1.5 0 1 0 1.5 1.5v-1.5zm13 0h-1.5a1.5 1.5 0 1 0 1.5 1.5v-1.5z"></path>
+            </PlaylistHeaderCoverNoImage>
+          </PlaylistHeaderCoverNoImageArea>
+        )}
+        <PlaylistHeaderTextArea>
+          <Typography
+            sx={{
+              display: {
+                xs: "none",
+                sm: "none",
+                md: "none",
+                lg: "none",
+                xl: "flex",
+              },
+            }}
+            color="#ffffff"
+            fontSize={"14px"}
+          >
+            공개 플레이리스트
+          </Typography>
+          <Typography
+            variant="h1"
+            letterSpacing={"-0.5px"}
+            sx={{
+              fontSize: {
+                xs: "24px",
+                sm: "24px",
+                md: "24px",
+                lg: "24px",
+                xl: "96px",
+              },
 
-            fontWeight: {
-              lg: "900",
-              xl: "900",
-            },
+              fontWeight: {
+                lg: "900",
+                xl: "900",
+              },
 
-            marginBottom: {
-              xl: "12px",
-            },
-          }}
-        >
-          {name}
-        </Typography>
-        <PlaylistHeaderUserInfo>
-          {/* <PlaylistHeaderUserImage src={user?.images?.[0].url} /> */}
-          <PlaylistHeaderInfoText>
-            <Typography>{owner}</Typography>
-            <Typography fontSize={"13px"} display={{ xs: "none", md: "block" }}>
-              • 저장 횟수: {follower} • 총 {total}곡
-            </Typography>
-            <Typography fontSize={"13px"} display={{ xs: "block", md: "none" }}>
-              저장 횟수: {follower} • 총 {total}곡
-            </Typography>
-          </PlaylistHeaderInfoText>
-        </PlaylistHeaderUserInfo>
-      </PlaylistHeaderTextArea>
-      <PlaylistHeaderButtonIconsContainer>
+              marginBottom: {
+                xl: "12px",
+              },
+            }}
+          >
+            {name}
+          </Typography>
+          <PlaylistHeaderUserInfo>
+            {/* <PlaylistHeaderUserImage src={user?.images?.[0].url} /> */}
+            <PlaylistHeaderInfoText>
+              <Typography>{owner}</Typography>
+              <Typography
+                fontSize={"13px"}
+                display={{
+                  xs: "none",
+                  sm: "none",
+                  md: "none",
+                  lg: "none",
+                  xl: "block",
+                }}
+              >
+                • 저장 횟수: {follower} • 총 {total}곡
+              </Typography>
+              <Typography
+                fontSize={"13px"}
+                display={{
+                  xs: "block",
+                  sm: "block",
+                  md: "block",
+                  lg: "block",
+                  xl: "none",
+                }}
+              >
+                저장 횟수: {follower} • 총 {total}곡
+              </Typography>
+            </PlaylistHeaderInfoText>
+          </PlaylistHeaderUserInfo>
+        </PlaylistHeaderTextArea>
+      </DesktopPlaylistHeaderContainer>
+      <DesktopPlaylistHeaderButtonIconsContainer>
+        <PlaylistHeaderButtonsArea>
+          <PlaylistHeaderPlayButton>
+            <PlaylistHeaderPlayButtonIcon viewBox="0 0 24 24" width={"24px"}>
+              <path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"></path>
+            </PlaylistHeaderPlayButtonIcon>
+          </PlaylistHeaderPlayButton>
+          <DesktopPlaylistHeaderPlayButton>
+            <DesktopPlaylistHeaderIcon aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.398-2.38a1 1 0 0 0-1.414-1.413l-6.011 6.01-1.894-1.893a1 1 0 0 0-1.414 1.414l3.308 3.308 7.425-7.425z"></path>
+            </DesktopPlaylistHeaderIcon>
+          </DesktopPlaylistHeaderPlayButton>
+          <DesktopPlaylistHeaderPlayButton>
+            <DesktopPlaylistHeaderIcon aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12z"></path>
+              <path d="M12 6.05a1 1 0 0 1 1 1v7.486l1.793-1.793a1 1 0 1 1 1.414 1.414L12 18.364l-4.207-4.207a1 1 0 1 1 1.414-1.414L11 14.536V7.05a1 1 0 0 1 1-1z"></path>
+            </DesktopPlaylistHeaderIcon>
+          </DesktopPlaylistHeaderPlayButton>
+          <DesktopPlaylistHeaderPlayButton>
+            <DesktopPlaylistHeaderIcon aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M4.5 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm15 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-7.5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+            </DesktopPlaylistHeaderIcon>
+          </DesktopPlaylistHeaderPlayButton>
+        </PlaylistHeaderButtonsArea>
+      </DesktopPlaylistHeaderButtonIconsContainer>
+      <MobilePlaylistHeaderButtonIconsContainer>
         <PlaylistHeaderButtonsArea>
           <PlaylistHeaderButtons>
             <PlaylistHeaderLikeIcon aria-hidden="true" viewBox="0 0 24 24">
@@ -303,7 +422,7 @@ const PlaylistDetailHeader = ({
             <path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"></path>
           </PlaylistHeaderPlayButtonIcon>
         </PlaylistHeaderPlayButton>
-      </PlaylistHeaderButtonIconsContainer>
+      </MobilePlaylistHeaderButtonIconsContainer>
     </PlaylistDetailHeaderContainer>
   );
 };

@@ -1,27 +1,44 @@
 import React from "react";
 import { styled, Typography } from "@mui/material";
 import "../styles/AppLayout.style.css";
+import useCreatePlaylist from "../../hooks/useCreatePlaylist";
+import useGetCurrentUserProfile from "../../hooks/useGetCurrentUserProfile";
+import { getSpotifyAuthUrl } from "../../utils/auth";
 
+const ContentBoxHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "12px 16px 8px",
+  marginBottom: "16px",
+  color: theme.palette.text.primary,
+}));
 const LibraryHead = () => {
-  const ContentBoxHeader = styled("div")(({ theme }) => ({
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "12px 16px 8px",
-    marginBottom: "16px",
-    color: theme.palette.text.primary,
-  }));
+  const { data: user } = useGetCurrentUserProfile();
+
+  const { mutate: createPlaylist } = useCreatePlaylist();
+
+  const handleCreatePlaylist = () => {
+    if (!user) {
+      getSpotifyAuthUrl();
+    }
+    createPlaylist({ name: "나의 플레이리스트" });
+  };
+
   return (
     <ContentBoxHeader>
       <Typography
         variant="h2"
         fontWeight={700}
         marginLeft={"4px"}
-        sx={{ cursor: "default", letterSpacing: "-0.5px"}}
+        sx={{ cursor: "default", letterSpacing: "-0.5px" }}
       >
         내 라이브러리
       </Typography>
-      <button className="layout-sidebar-library-btn">
+      <button
+        className="layout-sidebar-library-btn"
+        onClick={handleCreatePlaylist}
+      >
         <svg
           data-encore-id="icon"
           role="img"
