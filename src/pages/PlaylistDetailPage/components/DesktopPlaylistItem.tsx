@@ -1,5 +1,5 @@
 import React from "react";
-import { styled, TableCell, TableRow, Typography } from "@mui/material";
+import { colors, styled, TableCell, TableRow, Typography } from "@mui/material";
 import { PlaylistTrack } from "../../../models/playlist";
 import { Episode, Track } from "../../../models/track";
 
@@ -9,6 +9,7 @@ interface DesktopPlaylistItemProps {
 }
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  height: "54px",
   borderRadius: "4px",
   "&:hover": {
     "& td": {
@@ -25,6 +26,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "& .album-text": {
       color: "#ffffff",
     },
+    "& .desktop-playlist-items-play-icon-arrow": {
+      display: "flex",
+    },
+    "& .desktop-playlist-item-index": {
+      display: "none",
+    },
   },
 
   [theme.breakpoints.down("xl")]: {
@@ -32,22 +39,43 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+const DesktopPlaylistTitleArea = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  gap: "12px",
+});
+
 const StyledTableCell = styled(TableCell)({
+  height: "54px",
   color: "#ffffff",
   fontSize: "14px",
   border: "none",
+  padding: "7px",
 });
 
 const StyledTableCellTitle = styled(TableCell)({
+  height: "54px",
   color: "#ffffff",
   fontSize: "16px",
   border: "none",
+  padding: "7px",
+});
+
+const StyledTableCellIndex = styled(TableCell)({
+  width: "16px",
+  height: "54px",
+  gap: "12px",
+  color: "#ffffff",
+  fontSize: "16px",
+  border: "none",
+  padding: "7px",
 });
 
 const StyledTableTypography = styled(Typography)({
   width: "fit-content",
   cursor: "pointer",
   "&:hover": {
+    color: "#ffffff",
     textDecoration: "underline",
   },
 });
@@ -64,6 +92,32 @@ const StyledTableTypographyAlbum = styled(Typography)({
 const StyledTableTypographyInfo = styled(Typography)({
   width: "fit-content",
   color: "#b3b3b3",
+});
+
+const DesktopPlaylistItemsAlbumCover = styled("img")({
+  width: "40px",
+  height: "40px",
+  borderRadius: "4px",
+});
+
+const DesktopTitleTextArea = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  gap: "2px",
+});
+
+const DesktopIndexTextArea = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
+const DesktopPlaylistItemPlayIconArrow = styled("svg")({
+  display: "none",
+  height: "24px",
+  width: "16px",
+  fill: "#ffffff",
 });
 
 const DesktopPlaylistItem = ({ item, index }: DesktopPlaylistItemProps) => {
@@ -95,25 +149,51 @@ const DesktopPlaylistItem = ({ item, index }: DesktopPlaylistItemProps) => {
 
   return (
     <StyledTableRow>
-      <StyledTableCell>
-        <StyledTableTypography
-          variant="body1"
-          sx={{
-            "&:hover": {
-              textDecoration: "none",
-            },
-          }}
-        >
-          {index}
-        </StyledTableTypography>
-      </StyledTableCell>
+      <StyledTableCellIndex>
+        <DesktopIndexTextArea>
+          <StyledTableTypography
+            variant="body1"
+            sx={{
+              "&:hover": {
+                textDecoration: "none",
+              },
+            }}
+            fontSize={"1rem"}
+            fontWeight={500}
+            color="#b3b3b3"
+            className="desktop-playlist-item-index"
+          >
+            {index}
+          </StyledTableTypography>
+          <DesktopPlaylistItemPlayIconArrow
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="desktop-playlist-items-play-icon-arrow"
+          >
+            <path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606"></path>
+          </DesktopPlaylistItemPlayIconArrow>
+        </DesktopIndexTextArea>
+      </StyledTableCellIndex>
       <StyledTableCellTitle>
-        <StyledTableTypography variant="h2" fontWeight={400}>
-          {item.track.name || "No Name"}
-        </StyledTableTypography>
-        <Typography fontSize={"0.8125rem"} color="#b3b3b3">
-          {isEpisode(item.track) ? "Unknown" : item.track.artists?.[0].name}
-        </Typography>
+        <DesktopPlaylistTitleArea>
+          <DesktopPlaylistItemsAlbumCover
+            src={
+              isEpisode(item.track)
+                ? "No Image"
+                : item.track.album?.images[0].url
+            }
+          />
+          <DesktopTitleTextArea>
+            <StyledTableTypography variant="h2" fontWeight={400}>
+              {item.track.name || "No Name"}
+            </StyledTableTypography>
+            <StyledTableTypography fontSize={"0.8125rem"} color="#b3b3b3">
+              {isEpisode(item.track)
+                ? "Unknown"
+                : item.track.artists?.map((artist) => artist.name).join(", ")}
+            </StyledTableTypography>
+          </DesktopTitleTextArea>
+        </DesktopPlaylistTitleArea>
       </StyledTableCellTitle>
       {/* <TableCell>{item.track.album?.name}</TableCell> 유니온 타입의 문제 때문에 아래 코드처럼 작성*/}
       <StyledTableCell>

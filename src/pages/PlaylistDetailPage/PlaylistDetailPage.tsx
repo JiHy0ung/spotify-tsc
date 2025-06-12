@@ -135,6 +135,7 @@ const PlaylistDetailPage = () => {
         owner={playlist?.owner?.display_name}
         follower={playlist?.followers.total}
         total={playlist?.tracks?.total}
+        f_image={playlistItems?.pages[0].items[0].track.album.images[0].url}
       />
       {playlist?.tracks?.total === 0 ? (
         <Typography>Search</Typography>

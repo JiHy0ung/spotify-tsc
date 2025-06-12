@@ -9,12 +9,9 @@ const PlaylistDetailHeaderContainer = styled("div")(({ theme }) => ({
   justifyContent: "center",
   alignItems: "flex-start",
   gap: "8px",
-  padding: "24px 12px",
-  margin: "16px",
   borderRadius: "8px",
   [theme.breakpoints.up("xl")]: {
     alignItems: "center",
-    gap: "24px",
     borderRadius: "0px",
   },
   [theme.breakpoints.down("xl")]: {
@@ -142,7 +139,7 @@ const MobilePlaylistHeaderButtonIconsContainer = styled("div")(({ theme }) => ({
   justifyContent: "space-between",
   alignItems: "center",
   width: "100%",
-  height: "56px",
+  padding:"0px 0px 16px 4px",
   zIndex: 5,
   [theme.breakpoints.up("xl")]: {
     display: "none",
@@ -154,8 +151,10 @@ const DesktopPlaylistHeaderButtonIconsContainer = styled("div")(
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    background: "#12121233",
+    padding: "24px",
     width: "100%",
-    height: "56px",
+    height: "104px",
     zIndex: 5,
     [theme.breakpoints.down("xl")]: {
       display: "none",
@@ -163,12 +162,17 @@ const DesktopPlaylistHeaderButtonIconsContainer = styled("div")(
   })
 );
 
-const DesktopPlaylistHeaderContainer = styled("div")({
+const DesktopPlaylistHeaderContainer = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "flex-start",
   gap: "24px",
+  padding: "44px 24px 24px 24px",
   width: "100%",
-});
+  [theme.breakpoints.down("xl")]: {
+    flexDirection: "column",
+    padding: "15px 16px 0px 16px",
+  },
+}));
 
 const PlaylistHeaderButtonsArea = styled("div")({
   display: "flex",
@@ -200,12 +204,14 @@ const PlaylistHeaderPlayButton = styled("button")(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  marginRight: "16px",
   borderRadius: "50%",
   boxShadow: "0 4px 12px #0000004d;",
   border: "none",
   outline: "none",
   backgroundColor: theme.palette.primary.main,
   cursor: "pointer",
+  transition: "all 0.1s ease",
   "&:hover": {
     backgroundColor: "#3be477",
     transform: "scale(1.05)",
@@ -218,7 +224,7 @@ const DesktopPlaylistHeaderPlayButton = styled("button")(({ theme }) => ({
   alignItems: "center",
   width: "56px",
   height: "56px",
-  padding: "12px 0px",
+  padding: "0px 0px",
   background: "none",
   border: "none",
   outline: "none",
@@ -250,21 +256,30 @@ const PlaylistHeaderIcon = styled("svg")(({ theme }) => ({
   },
 }));
 
-const DesktopPlaylistHeaderButtons = styled("button")({
+const DesktopPlaylistPreviewContainer = styled("div")({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  width: "56px",
-  height: "56px",
-  padding: "0px 12px",
-  background: "none",
-  border: "none",
-  outline: "none",
-  transition: "all 0.5s",
+  height: "48px",
+  width: "38px",
+  borderRadius: "8px",
+  backgroundColor: "#b3b3b3",
+  marginLeft: "24px",
+  marginRight: "12px",
+});
+
+const DesktopPlaylistPreviewImage = styled("img")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  objectFit: "cover",
+  height: "44px",
+  width: "34px",
+  border: "2px solid black",
+  borderRadius: "6px",
   cursor: "pointer",
   "&:hover": {
-    "& svg": { fill: "#ffffff" },
-    transform: "scale(1.05)",
+    filter: "brightness(70%)",
   },
 });
 
@@ -279,6 +294,7 @@ interface PlaylistDetailItemProps {
   owner: string | null;
   follower: number;
   total: number;
+  f_image: string;
 }
 
 const PlaylistDetailHeader = ({
@@ -287,6 +303,7 @@ const PlaylistDetailHeader = ({
   owner,
   follower,
   total,
+  f_image,
 }: PlaylistDetailItemProps) => {
   return (
     <PlaylistDetailHeaderContainer>
@@ -373,6 +390,7 @@ const PlaylistDetailHeader = ({
           </PlaylistHeaderUserInfo>
         </PlaylistHeaderTextArea>
       </DesktopPlaylistHeaderContainer>
+
       <DesktopPlaylistHeaderButtonIconsContainer>
         <PlaylistHeaderButtonsArea>
           <PlaylistHeaderPlayButton>
@@ -380,6 +398,9 @@ const PlaylistDetailHeader = ({
               <path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"></path>
             </PlaylistHeaderPlayButtonIcon>
           </PlaylistHeaderPlayButton>
+          <DesktopPlaylistPreviewContainer>
+            <DesktopPlaylistPreviewImage src={f_image} />
+          </DesktopPlaylistPreviewContainer>
           <DesktopPlaylistHeaderPlayButton>
             <DesktopPlaylistHeaderIcon aria-hidden="true" viewBox="0 0 24 24">
               <path d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.398-2.38a1 1 0 0 0-1.414-1.413l-6.011 6.01-1.894-1.893a1 1 0 0 0-1.414 1.414l3.308 3.308 7.425-7.425z"></path>
@@ -398,6 +419,7 @@ const PlaylistDetailHeader = ({
           </DesktopPlaylistHeaderPlayButton>
         </PlaylistHeaderButtonsArea>
       </DesktopPlaylistHeaderButtonIconsContainer>
+
       <MobilePlaylistHeaderButtonIconsContainer>
         <PlaylistHeaderButtonsArea>
           <PlaylistHeaderButtons>

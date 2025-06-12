@@ -61,6 +61,7 @@ const MobilePlaylistItems = ({ item, index }: MobilePlaylistItemProps) => {
   const isEpisode = (track: Track | Episode): track is Episode => {
     return "description" in track;
   };
+
   return (
     <StyledTableRow>
       <StyledTableCellTitle>
@@ -81,7 +82,9 @@ const MobilePlaylistItems = ({ item, index }: MobilePlaylistItemProps) => {
                 : "Unknown"}
             </Typography>
             <Typography fontSize={"0.8125rem"} color="#b3b3b3">
-              {isEpisode(item.track) ? "Unknown" : item.track.artists?.[0].name}
+              {isEpisode(item.track)
+                ? "Unknown"
+                : item.track.artists?.map((artist) => artist.name).join(", ")}
             </Typography>
           </MobilePlaylistItemsSongInfoArea>
         </MobilePlaylistItemsSongArea>
