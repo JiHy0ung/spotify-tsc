@@ -216,7 +216,7 @@ const NavUserLogoutButton = styled("button")({
 });
 
 const NavBar = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleClick = () => {
     setOpen((prev) => !prev);

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import useGetPlaylist from "../../hooks/useGetPlaylist";
 import { Navigate, useParams } from "react-router";
-import { display, margin, style, styled } from "@mui/system";
+import { styled } from "@mui/system";
 import useGetPlaylistItems from "../../hooks/useGetPlaylistItems";
 import {
   Table,
@@ -19,6 +19,7 @@ import Loading from "../../common/components/Loading";
 import MobilePlaylistItems from "./components/MobilePlaylistItems";
 import useGetCurrentUserProfile from "../../hooks/useGetCurrentUserProfile";
 import GoToLogin from "../../common/components/GoToLogin";
+import EmptyPlaylistWithSearch from "./components/EmptyPlaylistWithSearch";
 
 const PlaylistDetailContainer = styled("div")(({ theme }) => ({
   height: "100%",
@@ -135,10 +136,12 @@ const PlaylistDetailPage = () => {
         owner={playlist?.owner?.display_name}
         follower={playlist?.followers.total}
         total={playlist?.tracks?.total}
-        f_image={playlistItems?.pages[0].items[0].track.album.images[0].url}
+        f_image={playlistItems?.pages[0]?.items[0]?.track?.album?.images?.[0]?.url}
       />
       {playlist?.tracks?.total === 0 ? (
-        <Typography>Search</Typography>
+        <Typography>
+          <EmptyPlaylistWithSearch />
+        </Typography>
       ) : (
         <PlaylistDetailTableArea>
           <StyledTable>
