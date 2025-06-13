@@ -115,9 +115,9 @@ const PlaylistDetailPage = () => {
     }
   }, [inView, fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  console.log("user", user);
-  console.log("pp", playlist);
-  console.log("pi", playlistItems);
+  // console.log("user", user);
+  // console.log("pp", playlist);
+  // console.log("pi", playlistItems);
 
   if (id === undefined) return <Navigate to="/" />;
   if (!user && !playlist) {

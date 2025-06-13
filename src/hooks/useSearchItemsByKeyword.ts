@@ -8,30 +8,31 @@ const useSearchItemsByKeyword = (params: SearchRequestParams) => {
   return useInfiniteQuery({
     queryKey: ["search", params],
     queryFn: ({ pageParam = 0 }) => {
+      console.log("offset in fn:", pageParam);
       if (!clientCredentialToken) {
         throw new Error("No token available");
       }
       return searchItemByKeyword(clientCredentialToken, {
-        offset: pageParam,
         ...params,
+        offset: pageParam,
       });
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
-      if (lastPage.next) {
-        const nextPageUrl =
-          lastPage.tracks?.next ||
-          lastPage.artists?.next ||
-          lastPage.albums?.next ||
-          lastPage.playlists?.next ||
-          lastPage.shows?.next ||
-          lastPage.episodes?.next ||
-          lastPage.audiobooks?.next;
+      const nextPageUrl =
+        lastPage.albums?.next ||
+        lastPage.artists?.next ||
+        lastPage.playlists?.next ||
+        lastPage.tracks?.next ||
+        lastPage.shows?.next ||
+        lastPage.episodes?.next ||
+        lastPage.audiobooks?.next;
 
-        if (nextPageUrl) {
-          const nextOffset = new URL(nextPageUrl).searchParams.get("offset");
-          return nextOffset ? parseInt(nextOffset) : undefined;
-        }
+      console.log("nextPage URL:", lastPage.tracks?.next);
+
+      if (nextPageUrl) {
+        const nextOffset = new URL(nextPageUrl).searchParams.get("offset");
+        return nextOffset ? parseInt(nextOffset) : undefined;
       }
       return undefined;
     },

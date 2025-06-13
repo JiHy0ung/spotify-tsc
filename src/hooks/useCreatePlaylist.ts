@@ -16,7 +16,7 @@ const useCreatePlaylist = () => {
     onSuccess: () => {
       // 성공하면 플레이리스트를 리프레쉬해서 바로 보이도록.
       queryClient.invalidateQueries({ queryKey: ["current-user-playlists"] });
-      console.log("성공!");
+      // console.log("성공!");
     },
   });
 };
