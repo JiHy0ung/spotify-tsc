@@ -4,6 +4,7 @@ const LoadingContainer = styled("div")({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  height: "70vh",
 });
 
 const Loading = () => {

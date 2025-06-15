@@ -91,7 +91,9 @@ const NewReleases = () => {
           ))}
         </Grid>
       ) : (
-        <Typography variant="h2">No Data</Typography>
+        <Typography variant="h2" paddingInline={"24px"} color="#b3b3b3">
+          No Data
+        </Typography>
       )}
     </div>
   );

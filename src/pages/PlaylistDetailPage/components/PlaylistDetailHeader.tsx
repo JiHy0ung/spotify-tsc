@@ -6,7 +6,13 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
   styled,
+  SwipeableDrawer,
   Typography,
 } from "@mui/material";
 import useUnfollowPlaylist from "../../../hooks/useUnfollowPlaylist";
@@ -389,6 +395,19 @@ const DesktopPlaylistOptionMenuDeleteIcon = styled("svg")({
   fill: "#b3b3b3",
 });
 
+const MobilePlaylistItemOptionMenuDeleteIcon = styled("svg")({
+  height: "16px",
+  width: "16px",
+  fill: "#b3b3b3",
+});
+
+const MobilePlaylistItemListPuller = styled("div")({
+  height: "5px",
+  width: "50px",
+  backgroundColor: "#b3b3b3",
+  borderRadius: "30px",
+});
+
 const PlaylistDetailHeader = ({
   name,
   image,
@@ -397,9 +416,10 @@ const PlaylistDetailHeader = ({
   total,
   f_image,
 }: PlaylistDetailItemProps) => {
-  const [optionMenuOpen, setOptionMenuOpen] = useState(false);
+  const [drawerMenuOpen, setDrawerMenuOpen] = useState<boolean>(false);
+  const [optionMenuOpen, setOptionMenuOpen] = useState<boolean>(false);
   const [deletePlaylistDialogOpen, setDeletePlaylistDialogOpen] =
-    useState(false);
+    useState<boolean>(false);
 
   const handleOptionMenu = () => {
     setOptionMenuOpen((prev) => !prev);
@@ -429,8 +449,36 @@ const PlaylistDetailHeader = ({
       if (user.display_name === owner) {
         navigate("/");
       }
+      setOptionMenuOpen(false);
     }
   };
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setDrawerMenuOpen(newOpen);
+  };
+
+  const DrawerList = (
+    <List>
+      <ListItem
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <MobilePlaylistItemListPuller />
+      </ListItem>
+      <ListItem>
+        <ListItemButton onClick={handleDeletePlaylist}>
+          <ListItemIcon sx={{ minWidth: "32px" }}>
+            <MobilePlaylistItemOptionMenuDeleteIcon
+              aria-hidden="true"
+              viewBox="0 0 16 16"
+            >
+              <path d="M5.25 3v-.917C5.25.933 6.183 0 7.333 0h1.334c1.15 0 2.083.933 2.083 2.083V3h4.75v1.5h-.972l-1.257 9.544A2.25 2.25 0 0 1 11.041 16H4.96a2.25 2.25 0 0 1-2.23-1.956L1.472 4.5H.5V3zm1.5-.917V3h2.5v-.917a.583.583 0 0 0-.583-.583H7.333a.583.583 0 0 0-.583.583M2.986 4.5l1.23 9.348a.75.75 0 0 0 .744.652h6.08a.75.75 0 0 0 .744-.652L13.015 4.5H2.985z"></path>
+            </MobilePlaylistItemOptionMenuDeleteIcon>
+          </ListItemIcon>
+          <ListItemText primary={"플레이리스트에서 삭제하기"} />
+        </ListItemButton>
+      </ListItem>
+    </List>
+  );
 
   return (
     <PlaylistDetailHeaderContainer>
@@ -672,7 +720,7 @@ const PlaylistDetailHeader = ({
                   <path d="M12 12.326a1 1 0 0 0 1-1V3.841l1.793 1.793a1 1 0 1 0 1.414-1.414L12 .012 7.793 4.22a1 1 0 1 0 1.414 1.414L11 3.84v7.485a1 1 0 0 0 1 1z"></path>
                 </PlaylistHeaderIcon>
               </PlaylistHeaderButtons>
-              <PlaylistHeaderButtons>
+              <PlaylistHeaderButtons onClick={toggleDrawer(true)}>
                 <PlaylistHeaderIcon aria-hidden="true" viewBox="0 0 24 24">
                   <path d="M4.5 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm15 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-7.5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
                 </PlaylistHeaderIcon>
@@ -683,6 +731,17 @@ const PlaylistDetailHeader = ({
                 <path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"></path>
               </PlaylistHeaderPlayButtonIcon>
             </PlaylistHeaderPlayButton>
+            <SwipeableDrawer
+              anchor="bottom"
+              onOpen={toggleDrawer(true)}
+              open={drawerMenuOpen}
+              onClose={toggleDrawer(false)}
+              PaperProps={{
+                sx: { borderRadius: "16px 16px 0 0" },
+              }}
+            >
+              {DrawerList}
+            </SwipeableDrawer>
           </MobilePlaylistHeaderButtonIconsContainer>
         </>
       )}
