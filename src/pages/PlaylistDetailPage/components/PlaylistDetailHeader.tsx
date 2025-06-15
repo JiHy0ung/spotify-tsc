@@ -424,7 +424,7 @@ const PlaylistDetailHeader = ({
   };
 
   const handleDeletePlaylist = () => {
-    if (user) {
+    if (user && id) {
       deletePlaylist({ playlist_id: id });
       if (user.display_name === owner) {
         navigate("/");

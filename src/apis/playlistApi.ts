@@ -7,6 +7,7 @@ import {
   GetPlaylistRequest,
   Playlist,
   PlaylistItemsResponse,
+  RemovePlaylistItemRequest,
 } from "../models/playlist";
 import api from "../utils/api";
 
@@ -83,20 +84,33 @@ export const addItemsToPlaylist = async (
   }
 };
 
-export const removePlaylistItem = async (playlist_id: string) => {
-  try {
-    const response = await api.delete(`/playlists/${playlist_id}/tracks`);
-    return response.data;
-  } catch (error) {
-    throw new Error("Failed to remove item in playlist.");
-  }
-};
-
 export const deletePlaylist = async (playlist_id: string) => {
   try {
     const response = await api.delete(`/playlists/${playlist_id}/followers`);
     return response.data;
   } catch (error) {
     throw new Error("Failed to delete playlist.");
+  }
+};
+
+export const removePlaylistItem = async (
+  params: RemovePlaylistItemRequest
+): Promise<{ snapshot_id: string }> => {
+  try {
+    const response = await api.delete(
+      `/playlists/${params.playlist_id}/tracks`,
+      {
+        data: {
+          tracks: [
+            {
+              uri: params.track.uri,
+            },
+          ],
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to remove item in playlist.");
   }
 };

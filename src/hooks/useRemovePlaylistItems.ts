@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { removePlaylistItem } from "../apis/playlistApi";
+import { RemovePlaylistItemRequest } from "../models/playlist";
 
 const useRemovePlaylistItems = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (playlist_id: string) => {
-      return removePlaylistItem(playlist_id);
+    mutationFn: (params: RemovePlaylistItemRequest) => {
+      return removePlaylistItem(params);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["current-user-playlists"] });

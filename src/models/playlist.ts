@@ -91,3 +91,9 @@ export interface AddItemsToPlaylistRequest {
   position?: number;
   uris?: string;
 }
+
+export interface RemovePlaylistItemRequest {
+  playlist_id: string;
+  track: { uri?: string };
+  snapshot_id: string;
+}
