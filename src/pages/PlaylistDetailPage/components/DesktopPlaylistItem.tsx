@@ -11,6 +11,7 @@ interface DesktopPlaylistItemProps {
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   height: "54px",
   borderRadius: "4px",
+  position: "relative",
   "&:hover": {
     "& td": {
       backgroundColor: "#ffffff1a",
@@ -31,6 +32,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
     "& .desktop-playlist-item-index": {
       display: "none",
+    },
+    "& .desktop-playlist-item-option-icon": {
+      display: "flex",
     },
   },
 
@@ -120,6 +124,25 @@ const DesktopPlaylistItemPlayIconArrow = styled("svg")({
   fill: "#ffffff",
 });
 
+const StyledTableOPtionCell = styled(TableCell)({
+  display: "flex",
+  alignItems: "center",
+  gap: "16px",
+  height: "54px",
+  color: "#ffffff",
+  fontSize: "14px",
+  border: "none",
+  padding: "7px",
+});
+
+const DesktopPlaylistItemOptionIcon = styled("svg")({
+  width: "16px",
+  display: "none",
+  position: "absolute",
+  right: "8px",
+  fill: "#ffffff",
+});
+
 const DesktopPlaylistItem = ({ item, index }: DesktopPlaylistItemProps) => {
   const isEpisode = (track: Track | Episode): track is Episode => {
     return "description" in track;
@@ -206,11 +229,19 @@ const DesktopPlaylistItem = ({ item, index }: DesktopPlaylistItemProps) => {
           {year}년 {month}월 {day}일
         </StyledTableTypographyInfo>
       </StyledTableCell>
-      <StyledTableCell>
+      <StyledTableOPtionCell>
         <StyledTableTypographyInfo variant="body1">
           {minutes}:{seconds}
         </StyledTableTypographyInfo>
-      </StyledTableCell>
+        <DesktopPlaylistItemOptionIcon
+          width={"16px"}
+          aria-hidden="true"
+          viewBox="0 0 16 16"
+          className="desktop-playlist-item-option-icon"
+        >
+          <path d="M3 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m6.5 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0M16 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"></path>
+        </DesktopPlaylistItemOptionIcon>
+      </StyledTableOPtionCell>
     </StyledTableRow>
   );
 };

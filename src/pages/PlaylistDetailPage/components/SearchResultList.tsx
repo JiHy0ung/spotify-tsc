@@ -146,14 +146,13 @@ const SearchResultList = ({ list }: SearchResultListProps) => {
   const [successMessageOpen, setSuccessMessageOpen] = useState<boolean>(false);
 
   const { data: user } = useGetCurrentUserProfile();
-  const { mutate: addItem } = useAddItemsToPlaylist(() => {
-    setSuccessMessageOpen(true);
-  });
+  const { mutate: addItem } = useAddItemsToPlaylist();
   const { id } = useParams<{ id: string }>();
 
   const addItemToPlaylist = (uri: string) => {
     if (user) {
       addItem({ playlist_id: id, uris: [uri] });
+      setSuccessMessageOpen(true);
     }
   };
 

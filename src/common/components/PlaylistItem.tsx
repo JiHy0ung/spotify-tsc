@@ -55,7 +55,7 @@ const PlaylistCoverNoImage = styled("svg")({
 interface PlaylistItemProps {
   name: string;
   image: string | null;
-  artistName: string | null;
+  ownerName: string | null;
   id: string;
   handleClick: (id: string) => void;
 }
@@ -63,7 +63,7 @@ interface PlaylistItemProps {
 const PlaylistItem = ({
   name,
   image,
-  artistName,
+  ownerName,
   id,
   handleClick,
 }: PlaylistItemProps) => {
@@ -83,7 +83,7 @@ const PlaylistItem = ({
           {name}
         </Typography>
         <Typography fontSize="0.875rem" color="textSecondary">
-          {artistName}
+          플레이리스트 • {ownerName}
         </Typography>
       </PlaylistInfoArea>
     </PlaylistContainer>
