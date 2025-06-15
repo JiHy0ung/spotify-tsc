@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Track } from "../../../models/track";
-import { styled, Typography } from "@mui/material";
+import { Snackbar, styled, Typography } from "@mui/material";
 import useGetCurrentUserProfile from "../../../hooks/useGetCurrentUserProfile";
 import useAddItemsToPlaylist from "../../../hooks/useAddItemsToPlaylist";
 import { useParams } from "react-router";
@@ -143,8 +143,12 @@ const SearchResultAlbumName = styled(Typography)(({ theme }) => ({
 }));
 
 const SearchResultList = ({ list }: SearchResultListProps) => {
+  const [successMessageOpen, setSuccessMessageOpen] = useState<boolean>(false);
+
   const { data: user } = useGetCurrentUserProfile();
-  const { mutate: addItem } = useAddItemsToPlaylist();
+  const { mutate: addItem } = useAddItemsToPlaylist(() => {
+    setSuccessMessageOpen(true);
+  });
   const { id } = useParams<{ id: string }>();
 
   const addItemToPlaylist = (uri: string) => {
@@ -156,7 +160,7 @@ const SearchResultList = ({ list }: SearchResultListProps) => {
   return (
     <div>
       {list.map((track) => (
-        <SearchResultListContainer>
+        <SearchResultListContainer key={track.id}>
           <SearchResultListInfoArea>
             <SearchResultListAlbumCover src={track.album.images[0].url} />
             <SearchResultListTextArea>
@@ -194,6 +198,11 @@ const SearchResultList = ({ list }: SearchResultListProps) => {
           </SearchResultMobileAddButton>
         </SearchResultListContainer>
       ))}
+      <Snackbar
+        open={successMessageOpen}
+        autoHideDuration={100000}
+        message="플레이리스트에 곡이 추가 되었습니다!"
+      ></Snackbar>
     </div>
   );
 };

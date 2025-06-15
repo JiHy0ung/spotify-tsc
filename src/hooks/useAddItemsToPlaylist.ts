@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AddItemsToPlaylistRequest } from "../models/playlist";
 import { addItemsToPlaylist } from "../apis/playlistApi";
 
-const useAddItemsToPlaylist = () => {
+const useAddItemsToPlaylist = (onSuccessCallback?: () => void) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (params: AddItemsToPlaylistRequest) => {
@@ -12,9 +12,11 @@ const useAddItemsToPlaylist = () => {
       return addItemsToPlaylist(params);
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["current-user-playlists"] });
       queryClient.invalidateQueries({ queryKey: ["playlist-detail"] });
       queryClient.invalidateQueries({ queryKey: ["playlist-items"] });
       console.log("곡 추가 성공!");
+      if (onSuccessCallback) onSuccessCallback();
     },
   });
 };
