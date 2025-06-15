@@ -1,8 +1,26 @@
-import React from "react";
-import { styled, Typography } from "@mui/material";
-import PlayButton from "../../../common/components/PlayButton";
-import { transform } from "typescript";
-import Loading from "../../../common/components/Loading";
+import React, { useState } from "react";
+import {
+  Button,
+  ClickAwayListener,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  styled,
+  Typography,
+} from "@mui/material";
+import useUnfollowPlaylist from "../../../hooks/useUnfollowPlaylist";
+import { useNavigate, useParams } from "react-router";
+import useGetCurrentUserProfile from "../../../hooks/useGetCurrentUserProfile";
+
+interface PlaylistDetailItemProps {
+  name: string;
+  image: string | null;
+  owner: string | null;
+  follower: number;
+  total: number;
+  f_image: string;
+}
 
 const PlaylistDetailHeaderContainer = styled("div")(({ theme }) => ({
   position: "relative",
@@ -85,12 +103,6 @@ const PlaylistHeaderUserInfo = styled("div")({
   display: "flex",
   alignItems: "center",
   gap: "8px",
-});
-
-const PlaylistHeaderUserImage = styled("img")({
-  width: "24px",
-  height: "24px",
-  borderRadius: "50%",
 });
 
 const PlaylistHeaderCoverNoImageArea = styled("div")(({ theme }) => ({
@@ -196,7 +208,7 @@ const PlaylistHeaderButtons = styled("button")({
   cursor: "pointer",
   "&:hover": {
     "& svg": { fill: "#ffffff" },
-    transform: "scale(1.05)",
+    transform: "scale(1.025)",
   },
 });
 
@@ -216,7 +228,7 @@ const PlaylistHeaderPlayButton = styled("button")(({ theme }) => ({
   transition: "all 0.1s ease",
   "&:hover": {
     backgroundColor: "#3be477",
-    transform: "scale(1.05)",
+    transform: "scale(1.025)",
   },
 }));
 
@@ -234,7 +246,7 @@ const DesktopPlaylistHeaderPlayButton = styled("button")(({ theme }) => ({
   cursor: "pointer",
   "&:hover": {
     "& svg": { fill: "#ffffff" },
-    transform: "scale(1.05)",
+    transform: "scale(1.025)",
   },
 }));
 
@@ -311,7 +323,7 @@ const EmptyPlaylistIcon = styled("svg")({
   cursor: "pointer",
   "&:hover": {
     fill: "#ffffff",
-    transform: "scale(1.05)",
+    transform: "scale(1.025)",
   },
 });
 
@@ -345,14 +357,37 @@ const EmptyPlaylistListIcon = styled("svg")({
   fill: "#b3b3b3",
 });
 
-interface PlaylistDetailItemProps {
-  name: string;
-  image: string | null;
-  owner: string | null;
-  follower: number;
-  total: number;
-  f_image: string;
-}
+const DesktopPlaylistOptionMenu = styled("div")({
+  position: "absolute",
+  top: "48px",
+  left: "16px",
+  width: "210px",
+  padding: "8px",
+  borderRadius: "4px",
+  backgroundColor: "#282828",
+  zIndex: "999",
+});
+
+const DesktopPlaylistOptionMenuButton = styled("button")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: "12px 8px 12px 12px",
+  gap: "8px",
+  width: "100%",
+  height: "40px",
+  background: "none",
+  outline: "none",
+  border: "none",
+  zIndex: "999",
+  "&:hover": {
+    backgroundColor: "#ffffff1a",
+  },
+}));
+
+const DesktopPlaylistOptionMenuDeleteIcon = styled("svg")({
+  width: "16px",
+  fill: "#b3b3b3",
+});
 
 const PlaylistDetailHeader = ({
   name,
@@ -362,8 +397,101 @@ const PlaylistDetailHeader = ({
   total,
   f_image,
 }: PlaylistDetailItemProps) => {
+  const [optionMenuOpen, setOptionMenuOpen] = useState(false);
+  const [deletePlaylistDialogOpen, setDeletePlaylistDialogOpen] =
+    useState(false);
+
+  const handleOptionMenu = () => {
+    setOptionMenuOpen((prev) => !prev);
+  };
+
+  const handleClickAwayOptionMenu = () => {
+    setOptionMenuOpen(false);
+  };
+
+  const { id } = useParams<{ id: string }>();
+  const { data: user } = useGetCurrentUserProfile();
+  const { mutate: deletePlaylist } = useUnfollowPlaylist();
+
+  const navigate = useNavigate();
+
+  const handleOpenDeletePlaylistDialog = () => {
+    setDeletePlaylistDialogOpen(true);
+  };
+
+  const handleCloseDeletePlaylistDialog = () => {
+    setDeletePlaylistDialogOpen(false);
+  };
+
+  const handleDeletePlaylist = () => {
+    if (user) {
+      deletePlaylist({ playlist_id: id });
+      if (user.display_name === owner) {
+        navigate("/");
+      }
+    }
+  };
+
   return (
     <PlaylistDetailHeaderContainer>
+      <Dialog
+        open={deletePlaylistDialogOpen}
+        onClose={handleCloseDeletePlaylistDialog}
+      >
+        <DialogContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
+            width: "420px",
+            padding: "32px 32px 0px 32px",
+            backgroundColor: "#ffffff",
+          }}
+        >
+          <DialogContentText variant="h1" color="#000000">
+            내 라이브러리에서 삭제할까요?
+          </DialogContentText>
+          <DialogContentText variant="body1" color="#000000">
+            <span style={{ fontWeight: "700" }}>내 라이브러리</span>
+            <span>에서</span>
+            <span style={{ fontWeight: "700" }}>{name}</span>
+            <span>이(가) 삭제됩니다.</span>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ padding: "32px", backgroundColor: "#ffffff" }}>
+          <Button
+            sx={{
+              padding: "10px 32px",
+              backgroundColor: "#ffffff",
+              fontSize: "16px",
+              fontWeight: "700",
+              color: "#000000",
+              "&:hover": {
+                transform: "scale(1.025)",
+              },
+            }}
+            onClick={handleCloseDeletePlaylistDialog}
+          >
+            취소하기
+          </Button>
+          <Button
+            sx={{
+              padding: "10px 32px",
+              backgroundColor: "#1ed760",
+              fontSize: "16px",
+              fontWeight: "700",
+              color: "#000000",
+              "&:hover": {
+                transform: "scale(1.025)",
+              },
+            }}
+            onClick={handleDeletePlaylist}
+          >
+            삭제하기
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       {image && <PlaylistHeaderBackground backgroundImage={image} />}
       <DesktopPlaylistHeaderContainer>
         {image ? (
@@ -499,14 +627,35 @@ const PlaylistDetailHeader = ({
                   <path d="M12 6.05a1 1 0 0 1 1 1v7.486l1.793-1.793a1 1 0 1 1 1.414 1.414L12 18.364l-4.207-4.207a1 1 0 1 1 1.414-1.414L11 14.536V7.05a1 1 0 0 1 1-1z"></path>
                 </DesktopPlaylistHeaderIcon>
               </DesktopPlaylistHeaderPlayButton>
-              <DesktopPlaylistHeaderPlayButton>
-                <DesktopPlaylistHeaderIcon
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M4.5 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm15 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-7.5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
-                </DesktopPlaylistHeaderIcon>
-              </DesktopPlaylistHeaderPlayButton>
+              <ClickAwayListener onClickAway={handleClickAwayOptionMenu}>
+                <DesktopPlaylistHeaderPlayButton sx={{ position: "relative" }}>
+                  <DesktopPlaylistHeaderIcon
+                    onClick={handleOptionMenu}
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M4.5 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm15 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-7.5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                  </DesktopPlaylistHeaderIcon>
+                  {optionMenuOpen ? (
+                    <DesktopPlaylistOptionMenu>
+                      <DesktopPlaylistOptionMenuButton
+                        onClick={handleOpenDeletePlaylistDialog}
+                      >
+                        <DesktopPlaylistOptionMenuDeleteIcon
+                          aria-hidden="true"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8"></path>
+                          <path d="M12 8.75H4v-1.5h8z"></path>
+                        </DesktopPlaylistOptionMenuDeleteIcon>
+                        <Typography variant="body1" color="#b3b3b3">
+                          삭제하기
+                        </Typography>
+                      </DesktopPlaylistOptionMenuButton>
+                    </DesktopPlaylistOptionMenu>
+                  ) : null}
+                </DesktopPlaylistHeaderPlayButton>
+              </ClickAwayListener>
             </PlaylistHeaderButtonsArea>
           </DesktopPlaylistHeaderButtonIconsContainer>
 

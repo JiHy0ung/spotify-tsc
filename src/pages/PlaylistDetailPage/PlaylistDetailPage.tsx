@@ -14,7 +14,7 @@ import {
 import PlaylistDetailHeader from "./components/PlaylistDetailHeader";
 import DesktopPlaylistItem from "./components/DesktopPlaylistItem";
 import { PAGE_LIMIT } from "../../configs/commonConfig";
-import { InView, useInView } from "react-intersection-observer";
+import { useInView } from "react-intersection-observer";
 import Loading from "../../common/components/Loading";
 import MobilePlaylistItems from "./components/MobilePlaylistItems";
 import useGetCurrentUserProfile from "../../hooks/useGetCurrentUserProfile";
@@ -54,7 +54,7 @@ const PlaylistDetailLogin = styled("div")({
 
 const PlaylistDetailTableArea = styled("div")(({ theme }) => ({
   background: "#12121233",
-  zIndex: 999,
+  zIndex: 2,
   padding: "0px 24px",
   [theme.breakpoints.down("xl")]: {
     background:

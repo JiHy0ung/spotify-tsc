@@ -82,3 +82,21 @@ export const addItemsToPlaylist = async (
     throw new Error("Failed to add items to playlist");
   }
 };
+
+export const removePlaylistItem = async (playlist_id: string) => {
+  try {
+    const response = await api.delete(`/playlists/${playlist_id}/tracks`);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to remove item in playlist.");
+  }
+};
+
+export const deletePlaylist = async (playlist_id: string) => {
+  try {
+    const response = await api.delete(`/playlists/${playlist_id}/followers`);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to delete playlist.");
+  }
+};
