@@ -171,7 +171,7 @@ const DesktopPlaylistItemOptionMenu = styled("div")({
   borderRadius: "4px",
   backgroundColor: "#282828",
   boxShadow: "0 6px 8px #00000033",
-  zIndex:"99"
+  zIndex: "99",
 });
 
 const DesktopPlaylistItemOptionMenuButton = styled("button")({
@@ -202,8 +202,9 @@ const DesktopPlaylistItem = ({ item, index }: DesktopPlaylistItemProps) => {
   const { id } = useParams<{ id: string }>();
   const { mutate: removeItem } = useRemovePlaylistItems();
 
-  const handleRemovePlaylistItem = (track: Track | Episode, ) => {
+  const handleRemovePlaylistItem = (track: Track | Episode) => {
     removeItem({ playlist_id: id, track: { uri: track.uri } });
+    setItemOptionMenuOpen(false);
   };
 
   let minutes: number = 0;
