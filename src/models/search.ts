@@ -46,7 +46,7 @@ export interface GetSeveralBrowseCategoriesResponse {
 
 export interface Category {
   href: string;
-  icons: Image;
+  icons: Image[];
   id: string;
   name: string;
 }

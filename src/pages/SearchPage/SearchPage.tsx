@@ -87,7 +87,7 @@ const SearchPage = () => {
           ? category.categories.items.map((c) => {
               const bgColor = getRandomBackgroundColor();
               return (
-                <Grid size={{ lg: 6, xl: 3 }}>
+                <Grid size={{ lg: 6, xl: 2 }}>
                   <SearchPageCategoryContainer>
                     <SearchPageCategoryArea sx={{ backgroundColor: bgColor }}>
                       <SearchPageCategoryTitle variant="h1">
