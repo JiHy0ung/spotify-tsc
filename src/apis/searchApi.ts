@@ -50,7 +50,7 @@ export const getSeveralBrowseCategories = async (
   params?: GetSeveralBrowseCategoriesRequest
 ): Promise<GetSeveralBrowseCategoriesResponse> => {
   try {
-    const response = await axios.get(`${SPOTIFY_BASE_URL}/browse/categories`, {
+    const response = await axios.get(`${SPOTIFY_BASE_URL}/browse/categories?limit=50`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
