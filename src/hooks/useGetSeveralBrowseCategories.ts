@@ -14,7 +14,10 @@ const useGetSeveralBrowseCategories = (
   return useQuery<GetSeveralBrowseCategoriesResponse>({
     queryKey: ["browse-categories", params],
     queryFn: () => {
-      return getSeveralBrowseCategories(clientCredentialToken, params);
+      if (!clientCredentialToken) {
+        throw new Error("No token available");
+      }
+      return getSeveralBrowseCategories(clientCredentialToken);
     },
     enabled: !!clientCredentialToken,
   });
