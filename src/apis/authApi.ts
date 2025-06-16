@@ -50,7 +50,7 @@ export const exchangeToken = async (
   try {
     const url = "https://accounts.spotify.com/api/token";
 
-    if (!CLIENT_ID || !DEV_REDIRECT_URI) {
+    if (!CLIENT_ID || !REDIRECT_URI) {
       throw new Error("Missing required parameters.");
     }
 
@@ -58,7 +58,7 @@ export const exchangeToken = async (
       client_id: CLIENT_ID,
       grant_type: "authorization_code",
       code,
-      redirect_uri: DEV_REDIRECT_URI,
+      redirect_uri: REDIRECT_URI,
       code_verifier: codeVerifier,
     });
 

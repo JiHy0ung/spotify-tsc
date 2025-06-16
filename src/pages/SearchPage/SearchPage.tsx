@@ -39,7 +39,6 @@ const SearchPageCategoryArea = styled("div")({
   height: "100%",
   display: "flex",
   flexDirection: "column",
-  backgroundColor: "red",
   borderRadius: "8px",
   padding: "16px",
   position: "relative",
@@ -70,6 +69,14 @@ const SearchPageCategoryImage = styled("img")({
 const SearchPage = () => {
   const { data: category } = useGetSeveralBrowseCategories();
 
+  const getRandomBackgroundColor = () => {
+    let red = Math.floor(Math.random() * 256);
+    let green = Math.floor(Math.random() * 256);
+    let blue = Math.floor(Math.random() * 256);
+
+    return `rgb(${red}, ${green}, ${blue})`;
+  };
+
   console.log("dd", category);
 
   return (
@@ -77,18 +84,21 @@ const SearchPage = () => {
       <SearchPageTitle variant="h1">모두 둘러보기</SearchPageTitle>
       <Grid width={"100%"} container spacing={1}>
         {category
-          ? category.categories.items.map((c) => (
-              <Grid size={{ lg: 6, xl: 3 }}>
-                <SearchPageCategoryContainer>
-                  <SearchPageCategoryArea>
-                    <SearchPageCategoryTitle variant="h1">
-                      {c.name}
-                    </SearchPageCategoryTitle>
-                    <SearchPageCategoryImage src={c.icons[0].url} />
-                  </SearchPageCategoryArea>
-                </SearchPageCategoryContainer>
-              </Grid>
-            ))
+          ? category.categories.items.map((c) => {
+              const bgColor = getRandomBackgroundColor();
+              return (
+                <Grid size={{ lg: 6, xl: 3 }}>
+                  <SearchPageCategoryContainer>
+                    <SearchPageCategoryArea sx={{ backgroundColor: bgColor }}>
+                      <SearchPageCategoryTitle variant="h1">
+                        {c.name}
+                      </SearchPageCategoryTitle>
+                      <SearchPageCategoryImage src={c.icons[0].url} />
+                    </SearchPageCategoryArea>
+                  </SearchPageCategoryContainer>
+                </Grid>
+              );
+            })
           : null}
       </Grid>
     </SearchPageContainer>
