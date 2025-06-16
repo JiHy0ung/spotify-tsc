@@ -55,6 +55,10 @@
   cursor: pointer;
 }
 
+.layout_search_content_img:hover {
+  fill: #ffffff;
+}
+
 .layout-nav-info-1 {
   display: flex;
   justify-content: center;

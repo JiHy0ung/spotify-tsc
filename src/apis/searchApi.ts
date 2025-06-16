@@ -1,6 +1,11 @@
 import axios from "axios";
 import { SPOTIFY_BASE_URL } from "../configs/commonConfig";
-import { SearchRequestParams } from "../models/search";
+import {
+  GetSeveralBrowseCategoriesRequest,
+  GetSeveralBrowseCategoriesResponse,
+  SearchRequestParams,
+} from "../models/search";
+import api from "../utils/api";
 
 export const searchItemByKeyword = async (
   token: string,
@@ -37,5 +42,22 @@ export const searchItemByKeyword = async (
     return response.data;
   } catch (error) {
     throw new Error("Failed to search items by keyword.");
+  }
+};
+
+export const getSeveralBrowseCategories = async (
+  token: string,
+  params?: GetSeveralBrowseCategoriesRequest
+): Promise<GetSeveralBrowseCategoriesResponse> => {
+  try {
+    const response = await axios.get(`${SPOTIFY_BASE_URL}/browse/categories`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch browse categories.");
   }
 };

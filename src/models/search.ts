@@ -1,14 +1,9 @@
 import { SimplifiedAlbum } from "./album";
 import { ApiResponse } from "./apiResponse";
 import { Artist } from "./artist";
+import { Image } from "./commonType";
 import { SimplifiedPlaylist } from "./playlist";
-import {
-  Episode,
-  Show,
-  SimplifiedAudiobook,
-  SimplifiedEpisode,
-  Track,
-} from "./track";
+import { Show, SimplifiedAudiobook, SimplifiedEpisode, Track } from "./track";
 
 export enum SEARCH_TYPE {
   ALBUM = "album",
@@ -37,4 +32,21 @@ export interface SearchResponse {
   shows?: ApiResponse<Show>;
   episodes?: ApiResponse<SimplifiedEpisode>;
   audiobooks?: ApiResponse<SimplifiedAudiobook>;
+}
+
+export interface GetSeveralBrowseCategoriesRequest {
+  locale?: string;
+  limit?: number;
+  offset?: number;
+}
+
+export interface GetSeveralBrowseCategoriesResponse {
+  categories: ApiResponse<Category>;
+}
+
+export interface Category {
+  href: string;
+  icons: Image;
+  id: string;
+  name: string;
 }
