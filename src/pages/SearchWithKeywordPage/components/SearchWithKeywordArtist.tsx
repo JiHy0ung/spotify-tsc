@@ -7,13 +7,16 @@ interface SearchWithKeywordArtistProps {
   artists: Artist[];
 }
 
-const SearchArtistsContainer = styled("div")({
+const SearchArtistsContainer = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "flex-start",
   paddingTop: "48px",
-});
+  [theme.breakpoints.down("xl")]: {
+    paddingTop: "24px",
+  },
+}));
 
 const SearchArtistsResultArea = styled("div")({
   position: "relative",
@@ -96,10 +99,14 @@ const SearchWithKeywordArtist = ({ artists }: SearchWithKeywordArtistProps) => {
       <Typography variant="h1" marginBottom={"8px"}>
         아티스트
       </Typography>
-      <Grid width={"100%"} container>
+      <Grid
+        width={"100%"}
+        container
+        spacing={{ xl: 0, lg: 2, md: 2, sm: 4, xs: 6 }}
+      >
         {artists.slice(0, 6).map((artist) => {
           return (
-            <Grid size={{ xs: 12, xl: 2 }}>
+            <Grid size={{ lg: 4, xs: 6, xl: 2 }}>
               <SearchArtistsResultArea>
                 {artist.images && artist.images.length > 0 ? (
                   <SearchArtistsCoverArea>

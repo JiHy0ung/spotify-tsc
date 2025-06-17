@@ -3,7 +3,6 @@ import React from "react";
 import { useParams } from "react-router";
 import useSearchItemsByKeyword from "../../hooks/useSearchItemsByKeyword";
 import { SEARCH_TYPE } from "../../models/search";
-import SearchResultList from "../PlaylistDetailPage/components/SearchResultList";
 import Loading from "../../common/components/Loading";
 import SearchWithKeywordTrack from "./components/SearchWithKeywordTrack";
 import SearchWithKeywordArtist from "./components/SearchWithKeywordArtist";
@@ -11,7 +10,7 @@ import SearchWithKeywordAlbum from "./components/SearchWithKeywordAlbum";
 import SearchWithKeywordPlaylist from "./components/SearchWithKeywordPlaylist";
 import { PAGE_LIMIT } from "../../configs/commonConfig";
 
-const SearchWithKeywordPageContainer = styled("div")({
+const SearchWithKeywordPageContainer = styled("div")(({ theme }) => ({
   height: "100%",
   display: "flex",
   flexDirection: "column",
@@ -32,7 +31,12 @@ const SearchWithKeywordPageContainer = styled("div")({
   "&::-webkit-scrollbar-thumb:hover": {
     backgroundColor: "#ffffff80",
   },
-});
+
+  [theme.breakpoints.down("xl")]: {
+    paddingInline: "16px",
+    paddingBottom: "80px",
+  },
+}));
 
 const SearchWithKeywordNoResultArea = styled("div")({
   height: "100%",
@@ -69,15 +73,18 @@ const SearchWithKeywordPage = () => {
     <Loading />;
   }
 
+  const hasTrack = data?.pages.some((page) => page.tracks?.items.length);
+  const hasArtist = data?.pages.some((page) => page.artists?.items.length);
+  const hasAlbum = data?.pages.some((page) => page.albums?.items.length);
+  const hasPlaylist = data?.pages.some((page) => page.playlists?.items.length);
+
+  const hasNoResult = !hasTrack && !hasArtist && !hasAlbum && !hasPlaylist;
+
   console.log("data", data);
 
   return (
     <SearchWithKeywordPageContainer>
-      {keyword &&
-      data &&
-      data.pages.every(
-        (page) => !page.tracks || page.tracks.items.length === 0
-      ) ? (
+      {keyword && data && hasNoResult ? (
         <SearchWithKeywordNoResultArea>
           <Typography variant="h1" color="#ffffff">
             "{keyword}"과(와) 일치하는 결과가 없습니다
@@ -123,7 +130,7 @@ const SearchWithKeywordPage = () => {
               );
             })}
           </SearchWithKeywordAlbumArea>
-          <SearchWithKeywordPlaylistArea>
+          {/* <SearchWithKeywordPlaylistArea>
             {data?.pages.map((item, index) => {
               if (!item.playlists) return null;
               return (
@@ -133,7 +140,7 @@ const SearchWithKeywordPage = () => {
                 />
               );
             })}
-          </SearchWithKeywordPlaylistArea>
+          </SearchWithKeywordPlaylistArea> */}
         </>
       )}
     </SearchWithKeywordPageContainer>

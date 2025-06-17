@@ -7,14 +7,17 @@ interface SearchWithKeywordTrackProps {
   tracks: Track[];
 }
 
-const SearchTrackContainer = styled("div")({
+const SearchTrackContainer = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   paddingTop: "48px",
-});
+  [theme.breakpoints.down("xl")]: {
+    paddingTop: "24px",
+  },
+}));
 
-const SearchTrackTopResultArea = styled("div")({
+const SearchTrackTopResultArea = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "20px",
@@ -32,7 +35,10 @@ const SearchTrackTopResultArea = styled("div")({
     bottom: "20px",
     opacity: "1",
   },
-});
+  [theme.breakpoints.down("xl")]: {
+    flexDirection: "row",
+  },
+}));
 
 const SearchTrackTopResultTrackCover = styled("img")({
   display: "flex",
@@ -41,11 +47,14 @@ const SearchTrackTopResultTrackCover = styled("img")({
   borderRadius: "6px",
 });
 
-const SearchTrackTopResultTextInfo = styled("div")({
+const SearchTrackTopResultTextInfo = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-});
+  [theme.breakpoints.down("xl")]: {
+    justifyContent: "flex-start",
+  },
+}));
 
 const SearchTrackTrackResultContainer = styled("div")({
   display: "flex",
@@ -63,7 +72,6 @@ const SearchTrackTrackResultArea = styled("div")({
     backgroundColor: "#ffffff1a",
     "& svg": {
       opacity: "1",
-      fill: "#ffffff",
     },
   },
 });
@@ -82,12 +90,23 @@ const SearchTrackTrackResultTrackInfoArea = styled("div")({
   gap: "12px",
 });
 
-const SearchTrackResultTrackOptionIcon = styled("svg")({
+const SearchTrackResultTrackOptionIcon = styled("svg")(({ theme }) => ({
   width: "32px",
   paddingRight: "16px",
   opacity: "0",
-  fill: "#121212",
-});
+  fill: "#ffffff",
+  [theme.breakpoints.down("xl")]: {
+    opacity: "1",
+    paddingInline: "8px",
+  },
+}));
+
+const SearchTrackResultDurationTime = styled(Typography)(({ theme }) => ({
+  display: "flex",
+  [theme.breakpoints.down("xl")]: {
+    display: "none",
+  },
+}));
 
 const SearchTrackTrackCover = styled("img")({
   display: "flex",
@@ -126,7 +145,7 @@ const SearchWithKeywordTrack = ({ tracks }: SearchWithKeywordTrackProps) => {
   return (
     <SearchTrackContainer>
       <Grid width={"100%"} container spacing={2}>
-        <Grid size={{ xs: 12, xl: 4 }}>
+        <Grid size={{ xl: 4, lg: 12, xs: 12 }}>
           <Typography variant="h1" marginBottom={"8px"}>
             상위 결과
           </Typography>
@@ -147,7 +166,11 @@ const SearchWithKeywordTrack = ({ tracks }: SearchWithKeywordTrackProps) => {
           </SearchTrackTopResultArea>
         </Grid>
         <Grid size={{ xs: 12, xl: 8 }}>
-          <Typography variant="h1" paddingInline={"16px"} marginBottom={"8px"}>
+          <Typography
+            variant="h1"
+            marginBottom={"8px"}
+            sx={{ paddingInline: { xl: "16px", lg: "0px" } }}
+          >
             곡
           </Typography>
           <SearchTrackTrackResultContainer>
@@ -175,9 +198,12 @@ const SearchWithKeywordTrack = ({ tracks }: SearchWithKeywordTrackProps) => {
                     </SearchTrackTrackTextInfo>
                   </SearchTrackTrackResultTrackArea>
                   <SearchTrackTrackResultTrackInfoArea>
-                    <Typography variant="body1" color="#b3b3b3">
+                    <SearchTrackResultDurationTime
+                      variant="body1"
+                      color="#b3b3b3"
+                    >
                       {minutes}:{seconds}
-                    </Typography>
+                    </SearchTrackResultDurationTime>
                     <SearchTrackResultTrackOptionIcon
                       aria-hidden="true"
                       viewBox="0 0 16 16"

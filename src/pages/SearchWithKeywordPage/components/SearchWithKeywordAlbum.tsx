@@ -21,6 +21,7 @@ const SearchAlbumsResultArea = styled("div")({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  justifyContent: "flex-start",
   gap: "8px",
   padding: "12px",
   borderRadius: "8px",
@@ -99,10 +100,14 @@ const SearchWithKeywordAlbum = ({ albums }: SearchWithKeywordAlbumProps) => {
       <Typography variant="h1" marginBottom={"8px"}>
         앨범
       </Typography>
-      <Grid width={"100%"} container spacing={1}>
+      <Grid
+        width={"100%"}
+        container
+        spacing={{ xl: 1, lg: 2, md: 2, sm: 4, xs: 6 }}
+      >
         {albums.slice(0, 6).map((album) => {
           return (
-            <Grid size={{ xs: 12, xl: 2 }}>
+            <Grid size={{ lg: 2, md: 4, xs: 6, xl: 2 }}>
               <SearchAlbumsResultArea>
                 {album.images && album.images.length > 0 ? (
                   <SearchAlbumCoverArea>
