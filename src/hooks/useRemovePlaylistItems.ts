@@ -12,7 +12,7 @@ const useRemovePlaylistItems = () => {
       queryClient.invalidateQueries({ queryKey: ["current-user-playlists"] });
       queryClient.invalidateQueries({ queryKey: ["playlist-detail"] });
       queryClient.invalidateQueries({ queryKey: ["playlist-items"] });
-      console.log("곡 삭제 성공!");
+      // console.log("곡 삭제 성공!");
     },
   });
 };

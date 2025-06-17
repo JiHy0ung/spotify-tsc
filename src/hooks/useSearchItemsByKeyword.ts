@@ -8,7 +8,7 @@ const useSearchItemsByKeyword = (params: SearchRequestParams) => {
   return useInfiniteQuery({
     queryKey: ["search", params],
     queryFn: ({ pageParam = 0 }) => {
-      console.log("offset in fn:", pageParam);
+      // console.log("offset in fn:", pageParam);
       if (!clientCredentialToken) {
         throw new Error("No token available");
       }
@@ -17,6 +17,7 @@ const useSearchItemsByKeyword = (params: SearchRequestParams) => {
         offset: pageParam,
       });
     },
+    enabled: !!clientCredentialToken && params.q.trim() !== "",
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
       const nextPageUrl =
@@ -28,7 +29,7 @@ const useSearchItemsByKeyword = (params: SearchRequestParams) => {
         lastPage.episodes?.next ||
         lastPage.audiobooks?.next;
 
-      console.log("nextPage URL:", lastPage.tracks?.next);
+      // console.log("nextPage URL:", lastPage.tracks?.next);
 
       if (nextPageUrl) {
         const nextOffset = new URL(nextPageUrl).searchParams.get("offset");
