@@ -328,6 +328,16 @@ const SearchWithKeywordTrack = ({ tracks }: SearchWithKeywordTrackProps) => {
                           display: "flex",
                           flexDirection: "column",
                           height: "390px",
+                          "&::-webkit-scrollbar": {
+                            width: "8px",
+                          },
+                          "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "#ffffff4c",
+                            borderRadius: "10px",
+                          },
+                          "&::-webkit-scrollbar-thumb:hover": {
+                            backgroundColor: "#ffffff80",
+                          },
                         }}
                       >
                         {userPlaylists.pages.map((page, index) => (

@@ -17,12 +17,12 @@ const PlaylistContainer = styled("div")(({ theme }) => ({
   alignItems: "center",
   gap: "8px",
   padding: "8px",
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor: "#1f1f1f",
   borderRadius: "6px",
   color: theme.palette.text.primary,
   cursor: "pointer",
   "&:hover": {
-    backgroundColor: "#1f1f1f",
+    backgroundColor: "#ffffff1a",
   },
 }));
 
@@ -67,7 +67,7 @@ const SearchWithKeywordAddMenuPlaylistItem = ({
     addItem({ playlist_id: id, uris: [uri] });
     alert("플레이리스트 추가 완료");
   };
-  
+
   return (
     <PlaylistContainer key={id} onClick={() => addItemToPlaylist(uri)}>
       {image ? (
