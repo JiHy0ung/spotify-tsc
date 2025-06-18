@@ -1,7 +1,13 @@
-import React from "react";
+import React, { MouseEvent, useState } from "react";
 import { Track } from "../../../models/track";
-import { Grid, styled, Typography } from "@mui/material";
+import { Box, Grid, Menu, MenuItem, styled, Typography } from "@mui/material";
 import PlayButton from "../../../common/components/PlayButton";
+import useAddItemsToPlaylist from "../../../hooks/useAddItemsToPlaylist";
+import useGetCurrentUserProfile from "../../../hooks/useGetCurrentUserProfile";
+import { useParams } from "react-router";
+import useGetCurrentUserPlaylists from "../../../hooks/useGetCurrentUserPlaylists";
+import LoginButton from "../../../common/components/LoginButton";
+import SearchWithKeywordAddMenuPlaylist from "./SearchWithKeywordAddMenuPlaylist";
 
 interface SearchWithKeywordTrackProps {
   tracks: Track[];
@@ -101,6 +107,39 @@ const SearchTrackResultTrackOptionIcon = styled("svg")(({ theme }) => ({
   },
 }));
 
+const SearchTrackResultTrackAddIcon = styled("svg")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "32px",
+  paddingRight: "16px",
+  opacity: "0",
+  fill: "#b3b3b3",
+  cursor: "pointer",
+
+  [theme.breakpoints.down("xl")]: {
+    opacity: "1",
+    paddingInline: "8px",
+  },
+}));
+
+const SearchTrackResultTrackAddButton = styled("button")(({ theme }) => ({
+  outline: "none",
+  border: "none",
+  background: "none",
+  width: "32px",
+  paddingRight: "16px",
+  cursor: "pointer",
+
+  "&:hover svg": {
+    fill: "#ffffff",
+  },
+
+  [theme.breakpoints.down("xl")]: {
+    opacity: "1",
+  },
+}));
+
 const SearchTrackResultDurationTime = styled(Typography)(({ theme }) => ({
   display: "flex",
   [theme.breakpoints.down("xl")]: {
@@ -139,9 +178,40 @@ const SearchTrackTopResultPlayButtonArea = styled("div")({
 });
 
 const SearchWithKeywordTrack = ({ tracks }: SearchWithKeywordTrackProps) => {
+  const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
+
+  const { data: user } = useGetCurrentUserProfile();
+  const {
+    data: userPlaylists,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useGetCurrentUserPlaylists({
+    limit: 10,
+    offset: 0,
+  });
+
+  const [anchorEL, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEL);
+
+  const handleTrackMenuClick = (
+    e: MouseEvent<HTMLButtonElement>,
+    track: Track
+  ) => {
+    setAnchorEl(e.currentTarget);
+    setSelectedTrack(track);
+  };
+
+  const handleTrackMenuClose = () => {
+    setAnchorEl(null);
+    setSelectedTrack(null);
+  };
+
   let minutes: number = 0;
   let seconds: string | number = "00";
 
+  console.log("user-playlist", userPlaylists);
+  console.log("user", user);
   return (
     <SearchTrackContainer>
       <Grid width={"100%"} container spacing={2}>
@@ -198,6 +268,78 @@ const SearchWithKeywordTrack = ({ tracks }: SearchWithKeywordTrackProps) => {
                     </SearchTrackTrackTextInfo>
                   </SearchTrackTrackResultTrackArea>
                   <SearchTrackTrackResultTrackInfoArea>
+                    {user && (
+                      <SearchTrackResultTrackAddButton
+                        onClick={(e) => handleTrackMenuClick(e, track)}
+                      >
+                        <SearchTrackResultTrackAddIcon
+                          aria-hidden="true"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8"></path>
+                          <path d="M11.75 8a.75.75 0 0 1-.75.75H8.75V11a.75.75 0 0 1-1.5 0V8.75H5a.75.75 0 0 1 0-1.5h2.25V5a.75.75 0 0 1 1.5 0v2.25H11a.75.75 0 0 1 .75.75"></path>
+                        </SearchTrackResultTrackAddIcon>
+                      </SearchTrackResultTrackAddButton>
+                    )}
+
+                    <Menu
+                      anchorEl={anchorEL}
+                      open={open}
+                      onClose={handleTrackMenuClose}
+                      PaperProps={{
+                        sx: {
+                          display: "flex",
+                          width: "292px",
+                          maxHeight: "490px",
+                          borderRadius: "8px",
+                          boxShadow: "0 16px 24px rgba(0,0,0, 0.3)",
+                          backgroundColor: "#1f1f1f",
+                          ml: -15,
+                        },
+                      }}
+                      MenuListProps={{
+                        sx: {
+                          backgroundColor: "#1f1f1f",
+                          padding: 0,
+                          width: "100%",
+                        },
+                      }}
+                    >
+                      <Typography
+                        fontSize={"12px"}
+                        fontWeight={700}
+                        color="#b3b3b3"
+                        width={"100%"}
+                        height={"40px"}
+                        display={"flex"}
+                        alignItems={"center"}
+                        position={"sticky"}
+                        paddingInline={"16px"}
+                        top={0}
+                        zIndex={1}
+                        bgcolor={"#1f1f1f"}
+                      >
+                        플레이리스트에 추가
+                      </Typography>
+                      <Box
+                        sx={{
+                          overflowX: "hidden",
+                          overflowY: "auto",
+                          display: "flex",
+                          flexDirection: "column",
+                          height: "390px",
+                        }}
+                      >
+                        {userPlaylists.pages.map((page, index) => (
+                          <SearchWithKeywordAddMenuPlaylist
+                            track={selectedTrack?.uri}
+                            playlists={page.items}
+                            key={index}
+                          />
+                        ))}
+                      </Box>
+                    </Menu>
+
                     <SearchTrackResultDurationTime
                       variant="body1"
                       color="#b3b3b3"

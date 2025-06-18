@@ -152,6 +152,7 @@ const SearchResultList = ({ list }: SearchResultListProps) => {
   const addItemToPlaylist = (uri: string) => {
     if (user) {
       addItem({ playlist_id: id, uris: [uri] });
+      console.log(uri);
       setSuccessMessageOpen(true);
     }
   };
