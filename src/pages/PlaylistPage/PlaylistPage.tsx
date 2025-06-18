@@ -6,15 +6,18 @@ import GoToLogin from "../../common/components/GoToLogin";
 import useCreatePlaylist from "../../hooks/useCreatePlaylist";
 import { getSpotifyAuthUrl } from "../../utils/auth";
 
-const PlaylistContainer = styled("div")({
+const PlaylistContainer = styled("div")(({ theme }) => ({
   height: "100%",
   display: "flex",
   flexDirection: "column",
   padding: "8px",
   borderRadius: "8px",
   backgroundColor: "#121212",
-});
-
+  overflowY: "auto",
+  [theme.breakpoints.down("xl")]: {
+    paddingBottom: "80px",
+  },
+}));
 const PlaylistLoginContainer = styled("div")({
   height: "100%",
   display: "flex",
