@@ -15,7 +15,6 @@ const SearchWithKeywordAddMenuPlaylist = ({ playlists, track }: PlaylistProps) =
     (playlist) => playlist.owner?.display_name === user?.display_name
   );
 
-  console.log("p2", filteredPlaylists);
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       {filteredPlaylists.map((playlist) => (

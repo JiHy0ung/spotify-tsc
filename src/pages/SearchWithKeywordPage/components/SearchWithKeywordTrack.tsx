@@ -187,7 +187,7 @@ const SearchWithKeywordTrack = ({ tracks }: SearchWithKeywordTrackProps) => {
     isFetchingNextPage,
     fetchNextPage,
   } = useGetCurrentUserPlaylists({
-    limit: 10,
+    limit: 50,
     offset: 0,
   });
 
@@ -294,7 +294,7 @@ const SearchWithKeywordTrack = ({ tracks }: SearchWithKeywordTrackProps) => {
                           borderRadius: "8px",
                           boxShadow: "0 16px 24px rgba(0,0,0, 0.3)",
                           backgroundColor: "#1f1f1f",
-                          ml: -15,
+                          ml: { xl: -15, xs: -10 },
                         },
                       }}
                       MenuListProps={{

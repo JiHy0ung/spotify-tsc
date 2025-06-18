@@ -63,12 +63,11 @@ const SearchWithKeywordAddMenuPlaylistItem = ({
 }: PlaylistItemProps) => {
   const { mutate: addItem } = useAddItemsToPlaylist();
 
-  console.log("id", id);
-
   const addItemToPlaylist = (uri: string) => {
     addItem({ playlist_id: id, uris: [uri] });
     alert("플레이리스트 추가 완료");
   };
+  
   return (
     <PlaylistContainer key={id} onClick={() => addItemToPlaylist(uri)}>
       {image ? (
