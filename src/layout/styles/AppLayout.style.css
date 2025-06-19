@@ -59,49 +59,6 @@
   fill: #ffffff;
 }
 
-.layout-nav-info-1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  color: #b3b3b3;
-  font-weight: 700;
-  font-size: 1rem;
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-.layout-nav-info-1 div {
-  cursor: pointer;
-}
-
-.layout-nav-info-1 div:hover {
-  color: white;
-}
-
-.layout-nav-info-2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  color: #b3b3b3;
-  font-weight: 700;
-  font-size: 0.875rem;
-  margin-left: 16px;
-  padding-left: 26px;
-  border-left: 1px solid white;
-}
-
-.layout-nav-info-2 div {
-  padding: 4px 16px 4px 8px;
-  gap: 8px;
-  cursor: pointer;
-}
-
-.layout-nav-info-2 div:hover {
-  color: white;
-}
-
 .layout-nav-download-img {
   width: 16px;
   fill: #b3b3b3;
@@ -139,26 +96,6 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-.layout-empty-library-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.875rem;
-  font-weight: 700;
-  border-radius: 30px;
-  background-color: white;
-  padding: 8px 16px;
-  width: fit-content;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
-.layout-empty-library-btn:hover {
-  background-color: #f0f0f0;
-  transform: scale(1.05);
 }
 
 .layout-notplaying-sign-up {
