@@ -42,11 +42,14 @@ const AlbumCoverContainer = styled("div")(({ theme }) => ({
   },
 }));
 
-const AlbumCoverImage = styled("img")({
+const AlbumCoverImage = styled("img")(({ theme }) => ({
   width: "100%",
   height: "100%",
   borderRadius: "8px",
-});
+  [theme.breakpoints.down("xl")]: {
+    borderRadius: "4px",
+  },
+}));
 
 const AlbumInfoArea = styled("div")({
   display: "flex",

@@ -3,7 +3,7 @@ import useGetSeveralArtists from "../../../hooks/useGetSeveralArtists";
 import { Grid, styled } from "@mui/system";
 import { Typography } from "@mui/material";
 import Loading from "../../../common/components/Loading";
-import ArtistCard from "../../../common/ArtistCard";
+import ArtistCard from "../../../common/components/ArtistCard";
 
 const HeaderContainer = styled("div")(({ theme }) => ({
   height: "56px",
@@ -56,7 +56,12 @@ const TopHitsArtists = () => {
           }}
         >
           {topHitsArtists?.artists?.map((artist) => (
-            <Grid size={{ xs: 6, sm: 4, md: 2 }} key={artist.id}>
+            <Grid
+              size={{ xs: 6, sm: 4, md: 2 }}
+              key={artist.id}
+              display={"flex"}
+              justifyContent={"center"}
+            >
               <ArtistCard
                 image={artist.images?.[0].url || ""}
                 name={artist.name || ""}

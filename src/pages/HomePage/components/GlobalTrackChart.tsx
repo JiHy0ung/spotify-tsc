@@ -6,6 +6,7 @@ import { Episode, Track } from "../../../models/track";
 import Card from "../../../common/components/Card";
 import Loading from "../../../common/components/Loading";
 import { useNavigate } from "react-router";
+import useGetCurrentUserProfile from "../../../hooks/useGetCurrentUserProfile";
 
 const GlobalTrackChartContainer = styled("div")({
   width: "100%",
@@ -33,6 +34,8 @@ const HeaderContainer = styled("div")(({ theme }) => ({
 }));
 
 const GlobalTrackChart = () => {
+  const { data: user } = useGetCurrentUserProfile();
+
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -62,60 +65,68 @@ const GlobalTrackChart = () => {
 
   return (
     <GlobalTrackChartContainer>
-      <HeaderContainer onClick={handleClick}>
-        <Typography
-          variant="h1"
-          sx={{ cursor: "pointer", fontSize: { lg: "20px", xs: "20px" } }}
-        >
-          빌보드 차트: Top 100
-        </Typography>
-        <Typography
-          variant="body1"
-          color="textSecondary"
-          fontWeight={700}
-          sx={{
-            cursor: "pointer",
-            display: {
-              xs: "none",
-              lg: "none",
-              xl: "block",
-            },
-          }}
-        >
-          모두 표시
-        </Typography>
-      </HeaderContainer>
-      <Grid
-        container
-        spacing={4}
-        sx={{
-          flex: "display",
-          paddingInline: {
-            xl: "28px",
-            lg: "8px",
-            md: "28px",
-            xs: "16px",
-          },
-        }}
-      >
-        {playlistItems?.pages.map((page, pageIndex) =>
-          page.items.slice(0, 6).map((item, itemIndex) => {
-            return (
-              <Grid size={{ xs: 6, sm: 4, md: 2 }}>
-                {isEpisode(item.track) ? (
-                  "No Image"
-                ) : (
-                  <Card
-                    image={item.track.album?.images[0].url}
-                    name={item.track.name || ""}
-                    artistName={item.track.artists?.[0].name}
-                  />
-                )}
-              </Grid>
-            );
-          })
-        )}
-      </Grid>
+      {user && (
+        <>
+          <HeaderContainer onClick={handleClick}>
+            <Typography
+              variant="h1"
+              sx={{ cursor: "pointer", fontSize: { lg: "20px", xs: "20px" } }}
+            >
+              빌보드 차트: Top 100
+            </Typography>
+            <Typography
+              variant="body1"
+              color="textSecondary"
+              fontWeight={700}
+              sx={{
+                cursor: "pointer",
+                display: {
+                  xs: "none",
+                  lg: "none",
+                  xl: "block",
+                },
+              }}
+            >
+              모두 표시
+            </Typography>
+          </HeaderContainer>
+          <Grid
+            container
+            spacing={4}
+            sx={{
+              flex: "display",
+              paddingInline: {
+                xl: "28px",
+                lg: "8px",
+                md: "28px",
+                xs: "16px",
+              },
+            }}
+          >
+            {playlistItems?.pages.map((page, pageIndex) =>
+              page.items.slice(0, 6).map((item, itemIndex) => {
+                return (
+                  <Grid
+                    size={{ xs: 6, sm: 4, md: 2 }}
+                    display={"flex"}
+                    justifyContent={"center"}
+                  >
+                    {isEpisode(item.track) ? (
+                      "No Image"
+                    ) : (
+                      <Card
+                        image={item.track.album?.images[0].url}
+                        name={item.track.name || ""}
+                        artistName={item.track.artists?.[0].name}
+                      />
+                    )}
+                  </Grid>
+                );
+              })
+            )}
+          </Grid>
+        </>
+      )}
     </GlobalTrackChartContainer>
   );
 };

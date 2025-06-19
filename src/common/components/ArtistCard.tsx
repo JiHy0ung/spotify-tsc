@@ -1,6 +1,6 @@
 import React from "react";
 import { styled, Typography } from "@mui/material";
-import PlayButton from "./components/PlayButton";
+import PlayButton from "./PlayButton";
 
 interface CardProps {
   image: string;

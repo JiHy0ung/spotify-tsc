@@ -27,7 +27,6 @@ const HeaderContainer = styled("div")(({ theme }) => ({
 }));
 
 const NewReleases = () => {
-
   const {
     data: newReleasesData,
     error: newReleasesError,
@@ -67,7 +66,12 @@ const NewReleases = () => {
           }}
         >
           {newReleasesData.albums.items.map((album) => (
-            <Grid size={{ xs: 6, sm: 4, md: 2 }} key={album.id}>
+            <Grid
+              size={{ xs: 6, sm: 4, md: 2 }}
+              key={album.id}
+              display={"flex"}
+              justifyContent={"center"}
+            >
               <Card
                 image={album.images[0].url}
                 name={album.name}
