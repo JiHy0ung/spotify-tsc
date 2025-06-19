@@ -340,7 +340,7 @@ const SearchWithKeywordTrack = ({ tracks }: SearchWithKeywordTrackProps) => {
                           },
                         }}
                       >
-                        {userPlaylists.pages.map((page, index) => (
+                        {userPlaylists?.pages.map((page, index) => (
                           <SearchWithKeywordAddMenuPlaylist
                             track={selectedTrack?.uri}
                             playlists={page.items}
