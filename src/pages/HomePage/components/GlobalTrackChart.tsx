@@ -85,6 +85,9 @@ const GlobalTrackChart = () => {
                   lg: "none",
                   xl: "block",
                 },
+                "&:hover": {
+                  textDecoration: "underline",
+                },
               }}
             >
               모두 표시
