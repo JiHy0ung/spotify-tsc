@@ -1,6 +1,7 @@
 import { ApiResponse } from "./apiResponse";
 import { Artist } from "./artist";
 import { ExternalUrls, Image, Restriction } from "./commonType";
+import { Copyright } from "./track";
 
 export interface getNewReleaseResponse {
   albums: ApiResponse<SimplifiedAlbum>;
@@ -21,4 +22,12 @@ export interface SimplifiedAlbum {
   type: string;
   uri: string;
   artists: Artist[];
+  copyrights: Copyright[];
+  external_ids: {
+    isrc?: string;
+    ean?: string;
+    upc?: string;
+  };
+  label: string;
+  popularity:number;
 }

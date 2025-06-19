@@ -1,9 +1,8 @@
-import React from "react";
 import { Grid, styled, Typography } from "@mui/material";
-import useGetNewReleases from "../../../hooks/useGetNewReleases";
-import Loading from "../../../common/components/Loading";
-import ErrorMessage from "../../../common/components/ErrorMessage";
+import React from "react";
 import Card from "../../../common/components/Card";
+import Loading from "../../../common/components/Loading";
+import useGetSeveralAlbums from "../../../hooks/useGetSeveralAlbums";
 
 const HeaderContainer = styled("div")(({ theme }) => ({
   height: "56px",
@@ -26,21 +25,10 @@ const HeaderContainer = styled("div")(({ theme }) => ({
   },
 }));
 
-const NewReleases = () => {
+const TopHitsAlbums = () => {
+  const { data: topHitsAlbums } = useGetSeveralAlbums();
 
-  const {
-    data: newReleasesData,
-    error: newReleasesError,
-    isLoading: isNewReleasesLoading,
-  } = useGetNewReleases();
-
-  if (isNewReleasesLoading) {
-    <Loading />;
-  }
-
-  if (newReleasesError) {
-    return <ErrorMessage errorMessage={newReleasesError.message} />;
-  }
+  console.log("topHitsAlbums", topHitsAlbums);
 
   return (
     <div>
@@ -49,10 +37,10 @@ const NewReleases = () => {
           variant="h1"
           sx={{ cursor: "pointer", fontSize: { lg: "20px", xs: "20px" } }}
         >
-          인기 신곡
+          인기 앨범 및 싱글
         </Typography>
       </HeaderContainer>
-      {newReleasesData && newReleasesData.albums.items.length > 0 ? (
+      {topHitsAlbums && topHitsAlbums.albums.length > 0 ? (
         <Grid
           container
           spacing={4}
@@ -66,7 +54,7 @@ const NewReleases = () => {
             },
           }}
         >
-          {newReleasesData.albums.items.map((album) => (
+          {topHitsAlbums?.albums?.map((album) => (
             <Grid size={{ xs: 6, sm: 4, md: 2 }} key={album.id}>
               <Card
                 image={album.images[0].url}
@@ -83,4 +71,4 @@ const NewReleases = () => {
   );
 };
 
-export default NewReleases;
+export default TopHitsAlbums;

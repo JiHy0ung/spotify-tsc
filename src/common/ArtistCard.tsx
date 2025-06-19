@@ -1,6 +1,6 @@
 import React from "react";
 import { styled, Typography } from "@mui/material";
-import PlayButton from "./PlayButton";
+import PlayButton from "./components/PlayButton";
 
 interface CardProps {
   image: string;
@@ -22,7 +22,7 @@ const CardContainer = styled("div")(({ theme }) => ({
     transform: "translate3d(0px, 0px, 0px)",
     backgroundColor: "#1f1f1f",
   },
-  "&:hover .albumPlayButton": {
+  "&:hover .artistPlayButton": {
     bottom: "8px",
     opacity: "1",
   },
@@ -32,7 +32,7 @@ const CardContainer = styled("div")(({ theme }) => ({
   },
 }));
 
-const AlbumCoverContainer = styled("div")(({ theme }) => ({
+const ArtistCoverContainer = styled("div")(({ theme }) => ({
   position: "relative",
   height: "171.5px",
   width: "171.5px",
@@ -42,19 +42,19 @@ const AlbumCoverContainer = styled("div")(({ theme }) => ({
   },
 }));
 
-const AlbumCoverImage = styled("img")({
+const ArtistCoverImage = styled("img")({
   width: "100%",
   height: "100%",
-  borderRadius: "8px",
+  borderRadius: "50%",
 });
 
-const AlbumInfoArea = styled("div")({
+const ArtistInfoArea = styled("div")({
   display: "flex",
   flexDirection: "column",
   gap: "4px",
 });
 
-const AlbumPlayButton = styled("div")(({ theme }) => ({
+const ArtistPlayButton = styled("div")(({ theme }) => ({
   right: "8px",
   bottom: "0px",
   opacity: "0",
@@ -66,16 +66,16 @@ const AlbumPlayButton = styled("div")(({ theme }) => ({
   },
 }));
 
-const Card = ({ image, name, artistName }: CardProps) => {
+const ArtistCard = ({ image, name, artistName }: CardProps) => {
   return (
     <CardContainer>
-      <AlbumCoverContainer>
-        <AlbumCoverImage src={image} alt={name} />
-        <AlbumPlayButton className="albumPlayButton">
+      <ArtistCoverContainer>
+        <ArtistCoverImage src={image} alt={name} />
+        <ArtistPlayButton className="artistPlayButton">
           <PlayButton />
-        </AlbumPlayButton>
-      </AlbumCoverContainer>
-      <AlbumInfoArea>
+        </ArtistPlayButton>
+      </ArtistCoverContainer>
+      <ArtistInfoArea>
         <Typography variant="h2" fontWeight={400}>
           {name}
         </Typography>
@@ -93,9 +93,9 @@ const Card = ({ image, name, artistName }: CardProps) => {
         >
           {artistName || "No Name"}
         </Typography>
-      </AlbumInfoArea>
+      </ArtistInfoArea>
     </CardContainer>
   );
 };
 
-export default Card;
+export default ArtistCard;

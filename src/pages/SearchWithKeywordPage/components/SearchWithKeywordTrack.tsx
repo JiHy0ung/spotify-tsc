@@ -1,12 +1,9 @@
 import React, { MouseEvent, useState } from "react";
 import { Track } from "../../../models/track";
-import { Box, Grid, Menu, MenuItem, styled, Typography } from "@mui/material";
+import { Box, Grid, Menu, styled, Typography } from "@mui/material";
 import PlayButton from "../../../common/components/PlayButton";
-import useAddItemsToPlaylist from "../../../hooks/useAddItemsToPlaylist";
 import useGetCurrentUserProfile from "../../../hooks/useGetCurrentUserProfile";
-import { useParams } from "react-router";
 import useGetCurrentUserPlaylists from "../../../hooks/useGetCurrentUserPlaylists";
-import LoginButton from "../../../common/components/LoginButton";
 import SearchWithKeywordAddMenuPlaylist from "./SearchWithKeywordAddMenuPlaylist";
 
 interface SearchWithKeywordTrackProps {

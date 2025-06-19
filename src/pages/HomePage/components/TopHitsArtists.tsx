@@ -1,9 +1,9 @@
 import React from "react";
-import { Grid, styled, Typography } from "@mui/material";
-import useGetNewReleases from "../../../hooks/useGetNewReleases";
+import useGetSeveralArtists from "../../../hooks/useGetSeveralArtists";
+import { Grid, styled } from "@mui/system";
+import { Typography } from "@mui/material";
 import Loading from "../../../common/components/Loading";
-import ErrorMessage from "../../../common/components/ErrorMessage";
-import Card from "../../../common/components/Card";
+import ArtistCard from "../../../common/ArtistCard";
 
 const HeaderContainer = styled("div")(({ theme }) => ({
   height: "56px",
@@ -26,21 +26,10 @@ const HeaderContainer = styled("div")(({ theme }) => ({
   },
 }));
 
-const NewReleases = () => {
+const TopHitsArtists = () => {
+  const { data: topHitsArtists } = useGetSeveralArtists();
 
-  const {
-    data: newReleasesData,
-    error: newReleasesError,
-    isLoading: isNewReleasesLoading,
-  } = useGetNewReleases();
-
-  if (isNewReleasesLoading) {
-    <Loading />;
-  }
-
-  if (newReleasesError) {
-    return <ErrorMessage errorMessage={newReleasesError.message} />;
-  }
+  console.log("topHitsArtists1", topHitsArtists);
 
   return (
     <div>
@@ -49,10 +38,10 @@ const NewReleases = () => {
           variant="h1"
           sx={{ cursor: "pointer", fontSize: { lg: "20px", xs: "20px" } }}
         >
-          인기 신곡
+          인기 아티스트
         </Typography>
       </HeaderContainer>
-      {newReleasesData && newReleasesData.albums.items.length > 0 ? (
+      {topHitsArtists && topHitsArtists.artists.length > 0 ? (
         <Grid
           container
           spacing={4}
@@ -66,12 +55,12 @@ const NewReleases = () => {
             },
           }}
         >
-          {newReleasesData.albums.items.map((album) => (
-            <Grid size={{ xs: 6, sm: 4, md: 2 }} key={album.id}>
-              <Card
-                image={album.images[0].url}
-                name={album.name}
-                artistName={album.artists[0].name}
+          {topHitsArtists?.artists?.map((artist) => (
+            <Grid size={{ xs: 6, sm: 4, md: 2 }} key={artist.id}>
+              <ArtistCard
+                image={artist.images?.[0].url || ""}
+                name={artist.name || ""}
+                artistName={artist.name}
               />
             </Grid>
           ))}
@@ -83,4 +72,4 @@ const NewReleases = () => {
   );
 };
 
-export default NewReleases;
+export default TopHitsArtists;

@@ -2,6 +2,9 @@ import React from "react";
 import NewReleases from "./components/NewReleases";
 import { styled, Typography } from "@mui/material";
 import useGetCurrentUserProfile from "../../hooks/useGetCurrentUserProfile";
+import GlobalTrackChart from "./components/GlobalTrackChart";
+import TopHitsAlbums from "./components/TopHitsAlbums";
+import TopHitsArtists from "./components/TopHitsArtists";
 
 const HomePageWrapper = styled("div")(({ theme }) => ({
   height: "100%",
@@ -16,10 +19,11 @@ const HomePageContainer = styled("div")(({ theme }) => ({
   height: "100%",
   width: "100%",
   paddingTop: "4px",
+  paddingBottom: "32px",
   borderRadius: "8px",
   overflowX: "hidden",
   overflowY: "auto",
-  backgroundImage: "linear-gradient(to bottom, #212121 0%, #121212 35%)",
+  backgroundImage: "linear-gradient(to bottom, #5c5c5c 0%, #121212 35%)",
 
   [theme.breakpoints.down("xl")]: {
     borderRadius: "0px",
@@ -95,6 +99,9 @@ const HomePage = () => {
           </HomePageBanner>
         )}
         <NewReleases />
+        <TopHitsArtists />
+        <GlobalTrackChart />
+        <TopHitsAlbums />
       </HomePageContainer>
     </HomePageWrapper>
   );
