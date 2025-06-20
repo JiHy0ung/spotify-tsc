@@ -5,7 +5,8 @@ import Playlist from "./Playlist";
 import useGetCurrentUserProfile from "../../hooks/useGetCurrentUserProfile";
 import { useInView } from "react-intersection-observer";
 import Loading from "../../common/components/Loading";
-import { styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
+import PlaylistSkeleton from "./PlaylistSkeleton";
 
 const EmptyTabArea = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("xl")]: {
@@ -21,6 +22,7 @@ const Library = () => {
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
+    isLoading,
   } = useGetCurrentUserPlaylists({
     limit: 10,
     offset: 0,
@@ -38,7 +40,13 @@ const Library = () => {
 
   return (
     <>
-      {!userPlaylists || userPlaylists?.pages[0].total === 0 ? (
+      {isLoading ? (
+        <Box display={"flex"} flexDirection={"column"} gap={"16px"}>
+          {Array.from({ length: 20 }).map((_) => (
+            <PlaylistSkeleton />
+          ))}
+        </Box>
+      ) : !userPlaylists || userPlaylists?.pages[0].total === 0 ? (
         <EmptyPlaylist />
       ) : (
         <>
@@ -46,7 +54,7 @@ const Library = () => {
             <Playlist playlists={page.items} key={index} />
           ))}
           <div ref={ref}>{isFetchingNextPage && <Loading />}</div>
-          <EmptyTabArea></EmptyTabArea>
+          <EmptyTabArea />
         </>
       )}
     </>

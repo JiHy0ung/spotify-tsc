@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import useGetSeveralBrowseCategories from "../../hooks/useGetSeveralBrowseCategories";
-import { Grid, styled, Typography } from "@mui/material";
+import { Box, Grid, Skeleton, styled, Typography } from "@mui/material";
 import Loading from "../../common/components/Loading";
 import { useNavigate } from "react-router";
 import MobileSearchPageInputBar from "./components/MobileSearchPageInputBar";
+import CategorySkeleton from "./components/CategorySkeleton";
 
 const SearchPageContainer = styled("div")(({ theme }) => ({
   height: "100%",
@@ -110,26 +111,36 @@ const SearchPage = () => {
   return (
     <SearchPageContainer>
       <MobileSearchPageInputBar />
-      <SearchPageTitle variant="h1">모두 둘러보기</SearchPageTitle>
-      <Grid width={"100%"} container spacing={{ xs: 2, xl: 1 }}>
-        {category
-          ? category.categories.items.map((c) => {
-              const bgColor = getRandomBackgroundColor();
-              return (
-                <Grid size={{ xs: 6, lg: 6, xl: 3 }} key={c.id}>
-                  <SearchPageCategoryContainer>
-                    <SearchPageCategoryArea sx={{ backgroundColor: bgColor }}>
-                      <SearchPageCategoryTitle variant="h1">
-                        {c.name}
-                      </SearchPageCategoryTitle>
-                      <SearchPageCategoryImage src={c.icons[0].url} />
-                    </SearchPageCategoryArea>
-                  </SearchPageCategoryContainer>
-                </Grid>
-              );
-            })
-          : null}
-      </Grid>
+      {categoryLoading ? (
+        <Box width={"100%"}>
+          <CategorySkeleton />
+        </Box>
+      ) : (
+        <>
+          <SearchPageTitle variant="h1">모두 둘러보기</SearchPageTitle>
+          <Grid width={"100%"} container spacing={{ xs: 2, xl: 1 }}>
+            {category
+              ? category.categories.items.map((c) => {
+                  const bgColor = getRandomBackgroundColor();
+                  return (
+                    <Grid size={{ xs: 6, lg: 6, xl: 3 }} key={c.id}>
+                      <SearchPageCategoryContainer>
+                        <SearchPageCategoryArea
+                          sx={{ backgroundColor: bgColor }}
+                        >
+                          <SearchPageCategoryTitle variant="h1">
+                            {c.name}
+                          </SearchPageCategoryTitle>
+                          <SearchPageCategoryImage src={c.icons[0].url} />
+                        </SearchPageCategoryArea>
+                      </SearchPageCategoryContainer>
+                    </Grid>
+                  );
+                })
+              : null}
+          </Grid>
+        </>
+      )}
     </SearchPageContainer>
   );
 };
