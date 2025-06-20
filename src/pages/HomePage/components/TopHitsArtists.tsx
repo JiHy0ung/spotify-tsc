@@ -1,9 +1,10 @@
 import React from "react";
 import useGetSeveralArtists from "../../../hooks/useGetSeveralArtists";
 import { Grid, styled } from "@mui/system";
-import { Typography } from "@mui/material";
+import { Skeleton, Typography } from "@mui/material";
 import Loading from "../../../common/components/Loading";
 import ArtistCard from "../../../common/components/ArtistCard";
+import ArtistCardSkeleton from "../../../common/components/ArtistCardSkeleton";
 
 const HeaderContainer = styled("div")(({ theme }) => ({
   height: "56px",
@@ -27,19 +28,26 @@ const HeaderContainer = styled("div")(({ theme }) => ({
 }));
 
 const TopHitsArtists = () => {
-  const { data: topHitsArtists } = useGetSeveralArtists();
+  const { data: topHitsArtists, isLoading } = useGetSeveralArtists();
 
   console.log("topHitsArtists1", topHitsArtists);
 
   return (
     <div>
       <HeaderContainer>
-        <Typography
-          variant="h1"
-          sx={{ cursor: "pointer", fontSize: { lg: "20px", xs: "20px" } }}
-        >
-          인기 아티스트
-        </Typography>
+        {isLoading ? (
+          <Skeleton 
+            variant="text"
+            sx={{ fontSize: "24px", width: "90px" }}
+          ></Skeleton>
+        ) : (
+          <Typography
+            variant="h1"
+            sx={{ cursor: "pointer", fontSize: { lg: "24px",  xs: "20px" } }}
+          >
+            인기 아티스트
+          </Typography>
+        )}
       </HeaderContainer>
       {topHitsArtists && topHitsArtists.artists.length > 0 ? (
         <Grid
@@ -71,7 +79,30 @@ const TopHitsArtists = () => {
           ))}
         </Grid>
       ) : (
-        <Loading />
+        <Grid
+          container
+          spacing={4}
+          sx={{
+            flex: "display",
+            paddingInline: {
+              xl: "32px",
+              lg: "8px",
+              md: "28px",
+              xs: "16px",
+            },
+          }}
+        >
+          {Array.from({ length: 6 }).map((_) => (
+            <Grid
+              size={{ xs: 6, sm: 4, md: 2 }}
+              display={"flex"}
+              justifyContent={"center"}
+              padding={"12px"}
+            >
+              <ArtistCardSkeleton />
+            </Grid>
+          ))}
+        </Grid>
       )}
     </div>
   );

@@ -1,9 +1,10 @@
 import React from "react";
-import { Grid, styled, Typography } from "@mui/material";
+import { Box, Grid, Skeleton, styled, Typography } from "@mui/material";
 import useGetNewReleases from "../../../hooks/useGetNewReleases";
 import Loading from "../../../common/components/Loading";
 import ErrorMessage from "../../../common/components/ErrorMessage";
 import Card from "../../../common/components/Card";
+import CardSkeleton from "../../../common/components/CardSkeleton";
 
 const HeaderContainer = styled("div")(({ theme }) => ({
   height: "56px",
@@ -33,10 +34,6 @@ const NewReleases = () => {
     isLoading: isNewReleasesLoading,
   } = useGetNewReleases();
 
-  if (isNewReleasesLoading) {
-    <Loading />;
-  }
-
   if (newReleasesError) {
     return <ErrorMessage errorMessage={newReleasesError.message} />;
   }
@@ -44,12 +41,19 @@ const NewReleases = () => {
   return (
     <div>
       <HeaderContainer>
-        <Typography
-          variant="h1"
-          sx={{ cursor: "pointer", fontSize: { lg: "20px", xs: "20px" } }}
-        >
-          인기 신곡
-        </Typography>
+        {isNewReleasesLoading ? (
+          <Skeleton
+            variant="text"
+            sx={{ fontSize: "24px", width: "90px" }}
+          ></Skeleton>
+        ) : (
+          <Typography
+            variant="h1"
+            sx={{ cursor: "pointer", fontSize: { lg: "24px", xs: "20px" } }}
+          >
+            인기 신곡
+          </Typography>
+        )}
       </HeaderContainer>
       {newReleasesData && newReleasesData.albums.items.length > 0 ? (
         <Grid
@@ -81,7 +85,30 @@ const NewReleases = () => {
           ))}
         </Grid>
       ) : (
-        <Loading />
+        <Grid
+          container
+          spacing={4}
+          sx={{
+            flex: "display",
+            paddingInline: {
+              xl: "32px",
+              lg: "8px",
+              md: "28px",
+              xs: "16px",
+            },
+          }}
+        >
+          {Array.from({ length: 6 }).map((_,) => (
+            <Grid
+              size={{ xs: 6, sm: 4, md: 2 }}
+              display={"flex"}
+              justifyContent={"center"}
+              padding={"12px"}
+            >
+              <CardSkeleton />
+            </Grid>
+          ))}
+        </Grid>
       )}
     </div>
   );

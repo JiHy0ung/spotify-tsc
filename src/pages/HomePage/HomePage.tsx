@@ -136,9 +136,9 @@ const HomePage = () => {
           </HomePageBanner>
         )}
         <NewReleases />
-        <GlobalTrackChart />
         <TopHitsArtists />
         <TopHitsAlbums />
+        <GlobalTrackChart />
       </HomePageContainer>
     </HomePageWrapper>
   );

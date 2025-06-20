@@ -1,8 +1,9 @@
-import { Grid, styled, Typography } from "@mui/material";
+import { Grid, Skeleton, styled, Typography } from "@mui/material";
 import React from "react";
 import Card from "../../../common/components/Card";
 import Loading from "../../../common/components/Loading";
 import useGetSeveralAlbums from "../../../hooks/useGetSeveralAlbums";
+import CardSkeleton from "../../../common/components/CardSkeleton";
 
 const HeaderContainer = styled("div")(({ theme }) => ({
   height: "56px",
@@ -26,19 +27,26 @@ const HeaderContainer = styled("div")(({ theme }) => ({
 }));
 
 const TopHitsAlbums = () => {
-  const { data: topHitsAlbums } = useGetSeveralAlbums();
+  const { data: topHitsAlbums, isLoading } = useGetSeveralAlbums();
 
   console.log("topHitsAlbums", topHitsAlbums);
 
   return (
     <div>
       <HeaderContainer>
-        <Typography
-          variant="h1"
-          sx={{ cursor: "pointer", fontSize: { lg: "20px", xs: "20px" } }}
-        >
-          인기 앨범 및 싱글
-        </Typography>
+        {isLoading ? (
+          <Skeleton
+            variant="text"
+            sx={{ fontSize: "24px", width: "90px" }}
+          ></Skeleton>
+        ) : (
+          <Typography
+            variant="h1"
+            sx={{ cursor: "pointer", fontSize: { lg: "24px", xs: "20px" } }}
+          >
+            인기 앨범 및 싱글
+          </Typography>
+        )}
       </HeaderContainer>
       {topHitsAlbums && topHitsAlbums.albums.length > 0 ? (
         <Grid
@@ -71,7 +79,30 @@ const TopHitsAlbums = () => {
           ))}
         </Grid>
       ) : (
-        <Loading />
+        <Grid
+          container
+          spacing={4}
+          sx={{
+            flex: "display",
+            paddingInline: {
+              xl: "32px",
+              lg: "8px",
+              md: "28px",
+              xs: "16px",
+            },
+          }}
+        >
+          {Array.from({ length: 6 }).map((_) => (
+            <Grid
+              size={{ xs: 6, sm: 4, md: 2 }}
+              display={"flex"}
+              justifyContent={"center"}
+              padding={"12px"}
+            >
+              <CardSkeleton />
+            </Grid>
+          ))}
+        </Grid>
       )}
     </div>
   );

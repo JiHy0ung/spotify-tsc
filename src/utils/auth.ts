@@ -9,8 +9,8 @@ export const getSpotifyAuthUrl = async () => {
   const codeChallenge = base64encode(hashed);
 
   const clientId = CLIENT_ID;
-  // const redirectUri = DEV_REDIRECT_URI;
-  const redirectUri = REDIRECT_URI;
+  const redirectUri = DEV_REDIRECT_URI;
+  // const redirectUri = REDIRECT_URI;
 
   const scope = SCOPES; // 얼마나 많은 허가가 필요한지.
   const authUrl = new URL("https://accounts.spotify.com/authorize");
